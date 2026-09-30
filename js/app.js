@@ -330,14 +330,14 @@ function renderTimetableCards() {
   const nowMin = now.getHours() * 60 + now.getMinutes();
 
   const classMeta = {
-    'S7 MRE': { title: 'Semester 7 Mechatronics', badge: 'Final Year', room: 'LH-301 · Robotics Lab', icon: '🤖' },
-    'S5 MRE': { title: 'Semester 5 Mechatronics', badge: 'Third Year', room: 'LH-204 · Mechatronics Lab 1', icon: '⚙️' },
-    'S3 MRE': { title: 'Semester 3 Mechatronics', badge: 'Second Year', room: 'LH-102 · Electronics Lab', icon: '⚡' }
+    'S7 MRE': { title: 'Semester 7 Mechatronics', badge: 'Final Year', icon: '🤖' },
+    'S5 MRE': { title: 'Semester 5 Mechatronics', badge: 'Third Year', icon: '⚙️' },
+    'S3 MRE': { title: 'Semester 3 Mechatronics', badge: 'Second Year', icon: '⚡' }
   };
 
   classesToRender.forEach(cls => {
     const periods = daySchedule[cls] || [];
-    const meta = classMeta[cls] || { title: cls, badge: 'MRE', room: 'Campus', icon: '📚' };
+    const meta = classMeta[cls] || { title: cls, badge: 'MRE', icon: '📚' };
 
     const card = document.createElement('div');
     card.className = 'tt-class-card';
@@ -345,7 +345,7 @@ function renderTimetableCards() {
 
     let rowsHTML = '';
     if (periods.length === 0) {
-      rowsHTML = `<tr><td colspan="6" class="tt-empty-day">No periods scheduled for ${cls} on ${currentDay}.</td></tr>`;
+      rowsHTML = `<tr><td colspan="5" class="tt-empty-day">No periods scheduled for ${cls} on ${currentDay}.</td></tr>`;
     } else {
       periods.forEach(p => {
         const isBreak = p.period === 'Break' || p.period === 'Lunch';
@@ -354,7 +354,7 @@ function renderTimetableCards() {
         if (isBreak) {
           rowsHTML += `
             <tr class="tt-row break-row">
-              <td colspan="6" class="tt-break-cell">
+              <td colspan="5" class="tt-break-cell">
                 <span class="tt-break-pill">${p.period === 'Lunch' ? '🍱' : '☕'} ${p.subject} &nbsp;·&nbsp; ${p.time}</span>
               </td>
             </tr>`;
@@ -369,7 +369,6 @@ function renderTimetableCards() {
               </td>
               <td class="tt-code-col"><span class="tt-code">${p.code}</span></td>
               <td class="tt-teacher">${p.teacher}</td>
-              <td class="tt-room-col"><span class="tt-room">${p.room}</span></td>
             </tr>`;
         }
       });
@@ -381,7 +380,6 @@ function renderTimetableCards() {
           <div class="tt-card-icon">${meta.icon}</div>
           <div>
             <div class="tt-card-title">${cls} &mdash; ${meta.title}</div>
-            <div class="tt-card-sub">📍 Primary Venue: ${meta.room}</div>
           </div>
         </div>
         <span class="tt-card-badge">${meta.badge}</span>
@@ -395,7 +393,6 @@ function renderTimetableCards() {
               <th>Subject</th>
               <th style="width:90px">Code</th>
               <th>Faculty</th>
-              <th style="width:110px">Room</th>
             </tr>
           </thead>
           <tbody>${rowsHTML}</tbody>

@@ -9,7 +9,7 @@ let isLoggedIn = false;
 function doLogin() {
   const user = document.getElementById('login-username').value.trim();
   const pass = document.getElementById('login-password').value.trim();
-  const cfg  = window.App.data.admin;
+  const cfg = window.App.data.admin;
   if (user === cfg.username && pass === cfg.password) {
     isLoggedIn = true;
     document.getElementById('admin-login-screen').classList.remove('open');
@@ -39,15 +39,15 @@ function closeAdmin() {
 function switchAdminTab(tab) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-  const tabEl   = document.getElementById('atab-' + tab);
+  const tabEl = document.getElementById('atab-' + tab);
   const panelEl = document.getElementById('apanel-' + tab);
-  if (tabEl)   tabEl.classList.add('active');
+  if (tabEl) tabEl.classList.add('active');
   if (panelEl) panelEl.classList.add('active');
 
-  if (tab === 'notices')      renderAdminNotices();
+  if (tab === 'notices') renderAdminNotices();
   if (tab === 'achievements') renderAdminAchievements();
-  if (tab === 'timetable')    renderAdminTimetable();
-  if (tab === 'settings')     loadSettings();
+  if (tab === 'timetable') renderAdminTimetable();
+  if (tab === 'settings') loadSettings();
 }
 
 /* ── ADMIN NOTICES ─────────────────────────────────────────────────────────── */
@@ -61,7 +61,7 @@ function renderAdminNotices() {
     list.innerHTML = '<div class="empty-state"><div class="es-icon">📋</div><p>No notices yet.</p></div>';
     return;
   }
-  const pColors = { urgent:'var(--accent-rose)', high:'var(--accent-amber)', normal:'var(--accent-green)' };
+  const pColors = { urgent: 'var(--accent-rose)', high: 'var(--accent-amber)', normal: 'var(--accent-green)' };
   notices.forEach(n => {
     const item = document.createElement('div');
     item.className = 'admin-list-item';
@@ -71,7 +71,7 @@ function renderAdminNotices() {
       <div class="ali-content">
         <div class="ali-title">${n.title}</div>
         <div class="ali-meta" style="display:flex;gap:10px;margin-top:3px;flex-wrap:wrap">
-          <span style="color:${pColors[n.priority]||'gray'};font-weight:600;font-size:11px">${n.priority.toUpperCase()}</span>
+          <span style="color:${pColors[n.priority] || 'gray'};font-weight:600;font-size:11px">${n.priority.toUpperCase()}</span>
           <span>📂 ${n.category}</span>
           <span>📅 Posted: ${window.formatDate(n.date)}</span>
           <span style="color:${isExpired ? 'var(--accent-rose)' : 'var(--text-secondary)'};font-weight:${isExpired ? '600' : 'normal'}">
@@ -94,14 +94,14 @@ function editNotice(id) {
   const n = (window.App.data.notices || []).find(x => x.id === id);
   if (!n) return;
   editingNoticeId = id;
-  document.getElementById('notice-form-title').value    = n.title;
+  document.getElementById('notice-form-title').value = n.title;
   document.getElementById('notice-form-category').value = n.category;
   document.getElementById('notice-form-priority').value = n.priority;
-  document.getElementById('notice-form-date').value     = n.date;
+  document.getElementById('notice-form-date').value = n.date;
   const deadlineInput = document.getElementById('notice-form-deadline');
   if (deadlineInput) deadlineInput.value = n.deadline || n.date;
-  document.getElementById('notice-form-author').value   = n.author;
-  document.getElementById('notice-form-content').value  = n.content;
+  document.getElementById('notice-form-author').value = n.author;
+  document.getElementById('notice-form-content').value = n.content;
   document.getElementById('notice-form-active').checked = n.active;
   document.getElementById('notice-form-heading').textContent = '✏️ Edit Notice';
   document.getElementById('notice-form-cancel').style.display = 'inline-flex';
@@ -115,14 +115,14 @@ function cancelEditNotice() {
 }
 
 function saveNotice() {
-  const title    = document.getElementById('notice-form-title').value.trim();
+  const title = document.getElementById('notice-form-title').value.trim();
   const category = document.getElementById('notice-form-category').value;
   const priority = document.getElementById('notice-form-priority').value;
-  const date     = document.getElementById('notice-form-date').value;
+  const date = document.getElementById('notice-form-date').value;
   const deadline = document.getElementById('notice-form-deadline')?.value || date;
-  const author   = document.getElementById('notice-form-author').value.trim();
-  const content  = document.getElementById('notice-form-content').value.trim();
-  const active   = document.getElementById('notice-form-active').checked;
+  const author = document.getElementById('notice-form-author').value.trim();
+  const content = document.getElementById('notice-form-content').value.trim();
+  const active = document.getElementById('notice-form-active').checked;
 
   if (!title || !content) { window.showToast('Title and content are required.', 'error'); return; }
 
@@ -180,7 +180,7 @@ function renderAdminAchievements() {
         <div class="ali-meta" style="display:flex;gap:8px;margin-top:3px;flex-wrap:wrap">
           <span>🎓 ${a.studentName}</span>
           <span>🏆 ${a.competition}</span>
-          <span style="color:${a.featured?'var(--accent-amber)':'var(--text-muted)'}">
+          <span style="color:${a.featured ? 'var(--accent-amber)' : 'var(--text-muted)'}">
             ${a.featured ? '⭐ Featured' : '○ Not Featured'}
           </span>
         </div>
@@ -197,16 +197,16 @@ function editAchievement(id) {
   const a = (window.App.data.achievements || []).find(x => x.id === id);
   if (!a) return;
   editingAchId = id;
-  document.getElementById('ach-form-name').value        = a.studentName;
-  document.getElementById('ach-form-rollno').value      = a.rollNo || '';
-  document.getElementById('ach-form-title').value       = a.title;
+  document.getElementById('ach-form-name').value = a.studentName;
+  document.getElementById('ach-form-rollno').value = a.rollNo || '';
+  document.getElementById('ach-form-title').value = a.title;
   document.getElementById('ach-form-competition').value = a.competition;
-  document.getElementById('ach-form-award').value       = a.award;
-  document.getElementById('ach-form-category').value    = a.category;
-  document.getElementById('ach-form-date').value        = a.date;
-  document.getElementById('ach-form-desc').value        = a.description;
-  document.getElementById('ach-form-imageurl').value    = a.image || '';
-  document.getElementById('ach-form-featured').checked  = a.featured;
+  document.getElementById('ach-form-award').value = a.award;
+  document.getElementById('ach-form-category').value = a.category;
+  document.getElementById('ach-form-date').value = a.date;
+  document.getElementById('ach-form-desc').value = a.description;
+  document.getElementById('ach-form-imageurl').value = a.image || '';
+  document.getElementById('ach-form-featured').checked = a.featured;
   previewImageSrc = a.image || '';
   updateAchPreview();
   document.getElementById('ach-form-heading').textContent = '✏️ Edit Achievement';
@@ -223,16 +223,16 @@ function cancelEditAch() {
 }
 
 function saveAchievement() {
-  const studentName  = document.getElementById('ach-form-name').value.trim();
-  const rollNo       = document.getElementById('ach-form-rollno').value.trim();
-  const title        = document.getElementById('ach-form-title').value.trim();
-  const competition  = document.getElementById('ach-form-competition').value.trim();
-  const award        = document.getElementById('ach-form-award').value.trim();
-  const category     = document.getElementById('ach-form-category').value;
-  const date         = document.getElementById('ach-form-date').value;
-  const description  = document.getElementById('ach-form-desc').value.trim();
-  const imageUrl     = document.getElementById('ach-form-imageurl').value.trim();
-  const featured     = document.getElementById('ach-form-featured').checked;
+  const studentName = document.getElementById('ach-form-name').value.trim();
+  const rollNo = document.getElementById('ach-form-rollno').value.trim();
+  const title = document.getElementById('ach-form-title').value.trim();
+  const competition = document.getElementById('ach-form-competition').value.trim();
+  const award = document.getElementById('ach-form-award').value.trim();
+  const category = document.getElementById('ach-form-category').value;
+  const date = document.getElementById('ach-form-date').value;
+  const description = document.getElementById('ach-form-desc').value.trim();
+  const imageUrl = document.getElementById('ach-form-imageurl').value.trim();
+  const featured = document.getElementById('ach-form-featured').checked;
 
   if (!studentName || !title) {
     window.showToast('Student name and title are required.', 'error'); return;
@@ -275,12 +275,12 @@ function deleteAchievement(id) {
 }
 
 function updateAchPreview() {
-  const name   = document.getElementById('ach-form-name')?.value.trim()  || 'Student Name';
-  const title  = document.getElementById('ach-form-title')?.value.trim() || 'Achievement Title';
-  const award  = document.getElementById('ach-form-award')?.value.trim() || 'Award';
+  const name = document.getElementById('ach-form-name')?.value.trim() || 'Student Name';
+  const title = document.getElementById('ach-form-title')?.value.trim() || 'Achievement Title';
+  const award = document.getElementById('ach-form-award')?.value.trim() || 'Award';
   const imgUrl = previewImageSrc || document.getElementById('ach-form-imageurl')?.value.trim() || '';
 
-  const imgEl     = document.getElementById('preview-img');
+  const imgEl = document.getElementById('preview-img');
   const imgHolder = document.getElementById('preview-img-placeholder');
   if (imgUrl) {
     imgEl.src = imgUrl; imgEl.style.display = 'block';
@@ -288,9 +288,9 @@ function updateAchPreview() {
   } else {
     imgEl.style.display = 'none'; imgHolder.style.display = 'flex';
   }
-  document.getElementById('preview-title').textContent   = title;
+  document.getElementById('preview-title').textContent = title;
   document.getElementById('preview-student').textContent = '🎓 ' + name;
-  document.getElementById('preview-award').textContent   = '🥇 ' + award;
+  document.getElementById('preview-award').textContent = '🥇 ' + award;
 }
 
 /* ── ADMIN TIMETABLE ─────────────────────────────────────────────────────── */
@@ -298,8 +298,8 @@ function renderAdminTimetable() {
   if (!window.App.data.timetable || !window.App.data.timetable.days) {
     window.App.data.timetable = window.DEFAULT_NOTICE_DATA.timetable;
   }
-  const days    = Object.keys(window.App.data.timetable.days);
-  const daySel  = document.getElementById('admin-tt-day-select');
+  const days = Object.keys(window.App.data.timetable.days);
+  const daySel = document.getElementById('admin-tt-day-select');
   if (daySel) {
     daySel.innerHTML = days.map(d => `<option value="${d}">${d}</option>`).join('');
     daySel.value = days[0];
@@ -316,11 +316,11 @@ function renderAdminTimetable() {
 }
 
 function renderAdminTimetableDay() {
-  const day     = document.getElementById('admin-tt-day-select')?.value || 'Monday';
-  const cls     = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
+  const day = document.getElementById('admin-tt-day-select')?.value || 'Monday';
+  const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
   const dayData = window.App.data.timetable.days[day] || {};
   const periods = dayData[cls] || [];
-  const list    = document.getElementById('admin-tt-list');
+  const list = document.getElementById('admin-tt-list');
   if (!list) return;
   list.innerHTML = '';
 
@@ -336,7 +336,6 @@ function renderAdminTimetableDay() {
         <div class="ali-meta" style="display:flex;gap:8px;margin-top:2px">
           <span>⏰ ${p.time}</span>
           <span>👤 ${p.teacher}</span>
-          <span>📍 ${p.room}</span>
         </div>
       </div>
       <div class="ali-actions">
@@ -350,20 +349,20 @@ function renderAdminTimetableDay() {
 }
 
 function addTTPeriod() {
-  const day     = document.getElementById('admin-tt-day-select').value;
-  const cls     = document.getElementById('admin-tt-class-select').value;
-  const period  = document.getElementById('tt-form-period').value.trim();
-  const time    = document.getElementById('tt-form-time').value.trim();
+  const day = document.getElementById('admin-tt-day-select').value;
+  const cls = document.getElementById('admin-tt-class-select').value;
+  const period = document.getElementById('tt-form-period').value.trim();
+  const time = document.getElementById('tt-form-time').value.trim();
   const subject = document.getElementById('tt-form-subject').value.trim();
-  const code    = document.getElementById('tt-form-code').value.trim();
+  const code = document.getElementById('tt-form-code').value.trim();
   const teacher = document.getElementById('tt-form-teacher').value.trim();
-  const room    = document.getElementById('tt-form-room').value.trim();
+
 
   if (!subject || !time) { window.showToast('Subject and time are required.', 'error'); return; }
 
   if (!window.App.data.timetable.days[day]) window.App.data.timetable.days[day] = {};
   if (!window.App.data.timetable.days[day][cls]) window.App.data.timetable.days[day][cls] = [];
-  window.App.data.timetable.days[day][cls].push({ period, time, subject, code, teacher, room });
+  window.App.data.timetable.days[day][cls].push({ period, time, subject, code, teacher });
   window.saveData();
   if (window.renderTimetable) window.renderTimetable();
   renderAdminTimetableDay();
@@ -390,9 +389,9 @@ function loadSettings() {
   const sin = document.getElementById('set-institution');
   if (sin) sin.value = cfg.institution || '';
   document.getElementById('set-weather-endpoint').value = cfg.weatherEndpoint || '';
-  document.getElementById('set-weather-city').value   = cfg.weatherCity || '';
+  document.getElementById('set-weather-city').value = cfg.weatherCity || '';
   document.getElementById('set-rotate-interval').value = cfg.rotateInterval || 12;
-  document.getElementById('set-auto-rotate').checked  = cfg.autoRotate;
+  document.getElementById('set-auto-rotate').checked = cfg.autoRotate;
 
   const themeModeEl = document.getElementById('set-theme-mode');
   if (themeModeEl) themeModeEl.value = cfg.theme || 'auto';
@@ -409,10 +408,10 @@ function saveSettings() {
   if (sbt) cfg.boardTitle = sbt.value.trim() || cfg.boardTitle;
   const sin = document.getElementById('set-institution');
   if (sin) cfg.institution = sin.value.trim() || cfg.institution;
-  cfg.weatherEndpoint   = document.getElementById('set-weather-endpoint').value.trim();
-  cfg.weatherCity       = document.getElementById('set-weather-city').value.trim() || cfg.weatherCity;
-  cfg.rotateInterval    = parseInt(document.getElementById('set-rotate-interval').value) || 12;
-  cfg.autoRotate        = document.getElementById('set-auto-rotate').checked;
+  cfg.weatherEndpoint = document.getElementById('set-weather-endpoint').value.trim();
+  cfg.weatherCity = document.getElementById('set-weather-city').value.trim() || cfg.weatherCity;
+  cfg.rotateInterval = parseInt(document.getElementById('set-rotate-interval').value) || 12;
+  cfg.autoRotate = document.getElementById('set-auto-rotate').checked;
 
   const themeModeEl = document.getElementById('set-theme-mode');
   if (themeModeEl) cfg.theme = themeModeEl.value;
@@ -465,7 +464,7 @@ function handleImport(e) {
       window.renderAchievements();
       window.updateUrgentBanner();
       window.showToast('Data imported successfully!', 'success');
-    } catch(err) {
+    } catch (err) {
       window.showToast('Invalid JSON file.', 'error');
     }
   };
@@ -521,14 +520,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('ach-form-cancel').addEventListener('click', cancelEditAch);
 
   // Achievement live preview triggers
-  ['ach-form-name','ach-form-title','ach-form-award','ach-form-imageurl'].forEach(id => {
+  ['ach-form-name', 'ach-form-title', 'ach-form-award', 'ach-form-imageurl'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', () => { if (id === 'ach-form-imageurl') previewImageSrc = ''; updateAchPreview(); });
   });
 
   // Image file upload (drag-drop + click)
   const uploadZone = document.getElementById('ach-upload-zone');
-  const fileInput  = document.getElementById('ach-file-input');
+  const fileInput = document.getElementById('ach-file-input');
   if (uploadZone) {
     uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
     uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
