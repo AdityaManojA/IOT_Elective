@@ -293,25 +293,150 @@ function updateAchPreview() {
   document.getElementById('preview-award').textContent = '🥇 ' + award;
 }
 
-/* ── ADMIN TIMETABLE ─────────────────────────────────────────────────────── */
+/* ── ADMIN TIMETABLE & SUBJECT CATALOG ───────────────────────────────────── */
+let editingTT = null; // { day, cls, idx }
+
+// Retrieve all unique subjects from catalog + timetable days
+function getAllSubjects() {
+  const map = new Map();
+
+  // 1. Stored subjects in catalog if any
+  if (Array.isArray(window.App.data.savedSubjects)) {
+    window.App.data.savedSubjects.forEach(s => {
+      if (s && s.subject) {
+        const key = s.subject.trim().toLowerCase();
+        map.set(key, {
+          subject: s.subject.trim(),
+          code: (s.code || '').trim(),
+          teacher: (s.teacher || '').trim()
+        });
+      }
+    });
+  }
+
+  // 2. Harvest from all timetable days
+  const days = (window.App.data.timetable && window.App.data.timetable.days) || {};
+  Object.values(days).forEach(dayObj => {
+    if (!dayObj || typeof dayObj !== 'object') return;
+    Object.values(dayObj).forEach(periods => {
+      if (Array.isArray(periods)) {
+        periods.forEach(p => {
+          if (!p || !p.subject) return;
+          const sub = p.subject.trim();
+          if (/^(short break|lunch break|break|lunch)$/i.test(sub)) return;
+          const key = sub.toLowerCase();
+          if (!map.has(key)) {
+            map.set(key, {
+              subject: sub,
+              code: (p.code || '').trim(),
+              teacher: (p.teacher || '').trim()
+            });
+          } else {
+            const existing = map.get(key);
+            if (!existing.code && p.code) existing.code = p.code.trim();
+            if (!existing.teacher && p.teacher) existing.teacher = p.teacher.trim();
+          }
+        });
+      }
+    });
+  });
+
+  return Array.from(map.values()).sort((a, b) => a.subject.localeCompare(b.subject));
+}
+
+// Save or update a subject in the catalog
+function saveSubjectToCatalog(subject, code, teacher) {
+  if (!subject) return;
+  const sub = subject.trim();
+  if (/^(short break|lunch break|break|lunch)$/i.test(sub)) return;
+
+  if (!Array.isArray(window.App.data.savedSubjects)) {
+    window.App.data.savedSubjects = [];
+  }
+
+  const key = sub.toLowerCase();
+  const existingIdx = window.App.data.savedSubjects.findIndex(s => s && s.subject && s.subject.trim().toLowerCase() === key);
+  const entry = {
+    subject: sub,
+    code: (code || '').trim(),
+    teacher: (teacher || '').trim()
+  };
+
+  if (existingIdx >= 0) {
+    window.App.data.savedSubjects[existingIdx] = entry;
+  } else {
+    window.App.data.savedSubjects.push(entry);
+  }
+}
+
+// Populate the existing subjects dropdown
+function populateSubjectDropdown() {
+  const select = document.getElementById('tt-subject-select');
+  if (!select) return;
+  const currentSub = document.getElementById('tt-form-subject')?.value.trim().toLowerCase();
+  const subjects = getAllSubjects();
+
+  select.innerHTML = '<option value="">-- Choose existing subject (auto-fills info) --</option>' +
+    subjects.map((s, idx) => {
+      const parts = [s.subject];
+      if (s.code) parts.push(`[${s.code}]`);
+      if (s.teacher) parts.push(`· ${s.teacher}`);
+      return `<option value="${idx}">${parts.join(' ')}</option>`;
+    }).join('');
+
+  if (currentSub) {
+    syncSubjectDropdownWithForm();
+  }
+}
+
+// Handle subject selection from dropdown
+function onSubjectSelectChange() {
+  const select = document.getElementById('tt-subject-select');
+  if (!select || select.value === '') return;
+  const idx = parseInt(select.value, 10);
+  const subjects = getAllSubjects();
+  const chosen = subjects[idx];
+  if (chosen) {
+    document.getElementById('tt-form-subject').value = chosen.subject || '';
+    document.getElementById('tt-form-code').value = chosen.code || '';
+    document.getElementById('tt-form-teacher').value = chosen.teacher || '';
+  }
+}
+
+// Sync dropdown value when user types in subject input
+function syncSubjectDropdownWithForm() {
+  const select = document.getElementById('tt-subject-select');
+  const subInput = document.getElementById('tt-form-subject');
+  if (!select || !subInput) return;
+  const val = subInput.value.trim().toLowerCase();
+  if (!val) {
+    select.value = '';
+    return;
+  }
+  const subjects = getAllSubjects();
+  const matchIdx = subjects.findIndex(s => s.subject.trim().toLowerCase() === val);
+  select.value = matchIdx >= 0 ? String(matchIdx) : '';
+}
+
 function renderAdminTimetable() {
   if (!window.App.data.timetable || !window.App.data.timetable.days) {
     window.App.data.timetable = window.DEFAULT_NOTICE_DATA.timetable;
   }
   const days = Object.keys(window.App.data.timetable.days);
   const daySel = document.getElementById('admin-tt-day-select');
-  if (daySel) {
+  if (daySel && (!daySel.children.length || !days.includes(daySel.value))) {
     daySel.innerHTML = days.map(d => `<option value="${d}">${d}</option>`).join('');
-    daySel.value = days[0];
+    daySel.value = days[0] || 'Monday';
   }
 
   const clsSel = document.getElementById('admin-tt-class-select');
-  if (clsSel) {
+  if (clsSel && !clsSel.children.length) {
     const classes = window.App.data.timetable.classes || ["S7 MRE", "S5 MRE", "S3 MRE"];
     clsSel.innerHTML = classes.map(c => `<option value="${c}">${c}</option>`).join('');
     clsSel.value = classes[0];
   }
 
+  populateSubjectDropdown();
   renderAdminTimetableDay();
 }
 
@@ -325,27 +450,76 @@ function renderAdminTimetableDay() {
   list.innerHTML = '';
 
   periods.forEach((p, idx) => {
+    const isEditing = editingTT && editingTT.day === day && editingTT.cls === cls && editingTT.idx === idx;
     const item = document.createElement('div');
-    item.className = 'admin-list-item';
+    item.className = 'admin-list-item' + (isEditing ? ' active-editing' : '');
     item.innerHTML = `
       <div class="ali-content">
         <div class="ali-title" style="font-size:13px">
           <span style="color:var(--text-muted);font-family:var(--font-mono);margin-right:8px">P${p.period}</span>
           ${p.subject} <span style="color:var(--accent-primary);font-size:11px;margin-left:6px">${p.code || ''}</span>
+          ${isEditing ? '<span style="color:var(--accent-amber);font-size:11px;margin-left:8px;font-weight:700">● EDITING</span>' : ''}
         </div>
         <div class="ali-meta" style="display:flex;gap:8px;margin-top:2px">
           <span>⏰ ${p.time}</span>
-          <span>👤 ${p.teacher}</span>
+          <span>👤 ${p.teacher || '—'}</span>
         </div>
       </div>
       <div class="ali-actions">
-        <button class="btn-danger" onclick="deleteTTPeriod('${day}', '${cls}', ${idx})">🗑️</button>
+        <button class="btn-sm btn-secondary" onclick="editTTPeriod('${day}', '${cls}', ${idx})" title="Edit period">✏️</button>
+        <button class="btn-sm btn-danger" onclick="deleteTTPeriod('${day}', '${cls}', ${idx})" title="Delete period">🗑️</button>
       </div>`;
     list.appendChild(item);
   });
   if (periods.length === 0) {
     list.innerHTML = `<div class="empty-state"><div class="es-icon">📅</div><p>No periods for ${cls} on ${day}.</p></div>`;
   }
+}
+
+function editTTPeriod(day, cls, idx) {
+  const dayData = window.App.data.timetable.days[day];
+  if (!dayData || !dayData[cls] || !dayData[cls][idx]) return;
+  const p = dayData[cls][idx];
+  editingTT = { day, cls, idx };
+
+  // Set selectors
+  const daySel = document.getElementById('admin-tt-day-select');
+  if (daySel) daySel.value = day;
+  const clsSel = document.getElementById('admin-tt-class-select');
+  if (clsSel) clsSel.value = cls;
+
+  // Fill form
+  document.getElementById('tt-form-period').value = p.period || '';
+  document.getElementById('tt-form-time').value = p.time || '';
+  document.getElementById('tt-form-subject').value = p.subject || '';
+  document.getElementById('tt-form-code').value = p.code || '';
+  document.getElementById('tt-form-teacher').value = p.teacher || '';
+
+  syncSubjectDropdownWithForm();
+
+  // Update UI heading and buttons
+  const heading = document.getElementById('tt-form-heading');
+  if (heading) heading.textContent = `✏️ Edit Period (P${p.period || idx + 1})`;
+  const submitBtn = document.getElementById('tt-form-submit');
+  if (submitBtn) submitBtn.textContent = '💾 Update Period';
+  const cancelBtn = document.getElementById('tt-form-cancel');
+  if (cancelBtn) cancelBtn.style.display = 'inline-flex';
+
+  renderAdminTimetableDay();
+}
+
+function cancelEditTTPeriod() {
+  editingTT = null;
+  document.getElementById('tt-form').reset();
+  const heading = document.getElementById('tt-form-heading');
+  if (heading) heading.textContent = '➕ Add Period';
+  const submitBtn = document.getElementById('tt-form-submit');
+  if (submitBtn) submitBtn.textContent = '➕ Add Period';
+  const cancelBtn = document.getElementById('tt-form-cancel');
+  if (cancelBtn) cancelBtn.style.display = 'none';
+  const subSel = document.getElementById('tt-subject-select');
+  if (subSel) subSel.value = '';
+  renderAdminTimetableDay();
 }
 
 function addTTPeriod() {
@@ -357,27 +531,47 @@ function addTTPeriod() {
   const code = document.getElementById('tt-form-code').value.trim();
   const teacher = document.getElementById('tt-form-teacher').value.trim();
 
-
   if (!subject || !time) { window.showToast('Subject and time are required.', 'error'); return; }
+
+  // Save subject to catalog with code and faculty for future dropdown selection
+  saveSubjectToCatalog(subject, code, teacher);
 
   if (!window.App.data.timetable.days[day]) window.App.data.timetable.days[day] = {};
   if (!window.App.data.timetable.days[day][cls]) window.App.data.timetable.days[day][cls] = [];
-  window.App.data.timetable.days[day][cls].push({ period, time, subject, code, teacher });
+
+  if (editingTT) {
+    const { day: eDay, cls: eCls, idx: eIdx } = editingTT;
+    if (window.App.data.timetable.days[eDay] && window.App.data.timetable.days[eDay][eCls]) {
+      window.App.data.timetable.days[eDay][eCls][eIdx] = { period, time, subject, code, teacher };
+    }
+    cancelEditTTPeriod();
+    window.showToast('Period updated successfully!', 'success');
+  } else {
+    window.App.data.timetable.days[day][cls].push({ period, time, subject, code, teacher });
+    document.getElementById('tt-form').reset();
+    const subSel = document.getElementById('tt-subject-select');
+    if (subSel) subSel.value = '';
+    window.showToast(`Period added to ${cls} on ${day}!`, 'success');
+  }
+
   window.saveData();
   if (window.renderTimetable) window.renderTimetable();
   renderAdminTimetableDay();
-  document.getElementById('tt-form').reset();
-  window.showToast(`Period added to ${cls} on ${day}!`, 'success');
+  populateSubjectDropdown();
 }
 
 function deleteTTPeriod(day, cls, idx) {
   if (!confirm(`Delete this period from ${cls}?`)) return;
+  if (editingTT && editingTT.day === day && editingTT.cls === cls && editingTT.idx === idx) {
+    cancelEditTTPeriod();
+  }
   if (window.App.data.timetable.days[day] && window.App.data.timetable.days[day][cls]) {
     window.App.data.timetable.days[day][cls].splice(idx, 1);
   }
   window.saveData();
   if (window.renderTimetable) window.renderTimetable();
   renderAdminTimetableDay();
+  populateSubjectDropdown();
   window.showToast('Period deleted.', 'success');
 }
 
@@ -543,9 +737,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Timetable form
   const ttDaySel = document.getElementById('admin-tt-day-select');
-  if (ttDaySel) ttDaySel.addEventListener('change', renderAdminTimetableDay);
+  if (ttDaySel) ttDaySel.addEventListener('change', () => {
+    if (editingTT) cancelEditTTPeriod();
+    renderAdminTimetableDay();
+  });
   const ttClassSel = document.getElementById('admin-tt-class-select');
-  if (ttClassSel) ttClassSel.addEventListener('change', renderAdminTimetableDay);
+  if (ttClassSel) ttClassSel.addEventListener('change', () => {
+    if (editingTT) cancelEditTTPeriod();
+    renderAdminTimetableDay();
+  });
+  const ttSubSel = document.getElementById('tt-subject-select');
+  if (ttSubSel) ttSubSel.addEventListener('change', onSubjectSelectChange);
+  const ttFormSub = document.getElementById('tt-form-subject');
+  if (ttFormSub) ttFormSub.addEventListener('input', syncSubjectDropdownWithForm);
+  const ttCancelBtn = document.getElementById('tt-form-cancel');
+  if (ttCancelBtn) ttCancelBtn.addEventListener('click', cancelEditTTPeriod);
   document.getElementById('tt-form').addEventListener('submit', e => { e.preventDefault(); addTTPeriod(); });
 
   // Settings

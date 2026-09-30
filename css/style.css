@@ -1093,6 +1093,12 @@ body.dark-theme::before {
   border-radius: var(--radius-md);
   margin-bottom: 7px; box-shadow: var(--shadow-sm);
   display: flex; align-items: center; gap: 11px;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.admin-list-item.active-editing {
+  border-color: var(--accent-primary);
+  background: rgba(123, 157, 212, 0.09);
+  box-shadow: 0 0 0 2px rgba(123, 157, 212, 0.25);
 }
 .ali-content { flex: 1; min-width: 0; }
 .ali-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
