@@ -1161,6 +1161,26 @@ body.dark-theme::before {
   opacity: 0.25;
   cursor: not-allowed;
 }
+.preset-chip {
+  background: rgba(123, 157, 212, 0.10);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.preset-chip:hover {
+  background: rgba(123, 157, 212, 0.22);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
 
 /* Two-col admin */
 .admin-two-col { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; }

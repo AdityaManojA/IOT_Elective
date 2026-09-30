@@ -381,36 +381,110 @@ function saveSubjectToCatalog(cls, subject, code, teacher) {
   }
 }
 
-// Populate the existing subjects dropdown with subjects relevant ONLY to selected class
+const BREAK_PRESETS = {
+  morning: {
+    key: 'preset_morning_break',
+    label: '☕ Morning Short Break (11:00–11:15)',
+    period: 'Break',
+    time: '11:00–11:15',
+    subject: 'Short Break',
+    code: '-',
+    teacher: '-'
+  },
+  lunch: {
+    key: 'preset_lunch_break',
+    label: '🍱 Lunch Break (13:15–14:00)',
+    period: 'Lunch',
+    time: '13:15–14:00',
+    subject: 'Lunch Break',
+    code: '-',
+    teacher: '-'
+  },
+  afternoon: {
+    key: 'preset_afternoon_break',
+    label: '☕ Afternoon Short Break (15:00–15:15)',
+    period: 'Break',
+    time: '15:00–15:15',
+    subject: 'Short Break',
+    code: '-',
+    teacher: '-'
+  }
+};
+
+function fillBreakPreset(type) {
+  const p = BREAK_PRESETS[type];
+  if (!p) return;
+  document.getElementById('tt-form-period').value = p.period;
+  document.getElementById('tt-form-time').value = p.time;
+  document.getElementById('tt-form-subject').value = p.subject;
+  document.getElementById('tt-form-code').value = p.code;
+  document.getElementById('tt-form-teacher').value = p.teacher;
+
+  const select = document.getElementById('tt-subject-select');
+  if (select) select.value = p.key;
+
+  window.showToast(`Selected ${p.subject} (${p.time})!`, 'info');
+}
+window.fillBreakPreset = fillBreakPreset;
+
+// Populate the existing subjects dropdown with breaks and class-relevant subjects
 function populateSubjectDropdown() {
   const select = document.getElementById('tt-subject-select');
   if (!select) return;
   const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
   const subjects = getSubjectsForClass(cls);
 
-  select.innerHTML = `<option value="">-- Choose existing subject for ${cls} --</option>` +
-    subjects.map((s, idx) => {
-      const parts = [s.subject];
-      if (s.code) parts.push(`[${s.code}]`);
-      if (s.teacher) parts.push(`· ${s.teacher}`);
-      return `<option value="${idx}">${parts.join(' ')}</option>`;
-    }).join('');
+  let html = `<option value="">-- Choose existing subject, lunch, or short break --</option>`;
 
+  // 1. Breaks & Lunch Presets
+  html += `<optgroup label="☕ Breaks &amp; Lunch Timings">`;
+  Object.values(BREAK_PRESETS).forEach(p => {
+    html += `<option value="${p.key}">${p.label}</option>`;
+  });
+  html += `</optgroup>`;
+
+  // 2. Class-specific Academic Subjects
+  html += `<optgroup label="📚 ${cls} Academic Subjects">`;
+  subjects.forEach((s, idx) => {
+    const parts = [s.subject];
+    if (s.code) parts.push(`[${s.code}]`);
+    if (s.teacher) parts.push(`· ${s.teacher}`);
+    html += `<option value="sub_${idx}">${parts.join(' ')}</option>`;
+  });
+  html += `</optgroup>`;
+
+  select.innerHTML = html;
   syncSubjectDropdownWithForm();
 }
 
-// Handle subject selection from dropdown
+// Handle subject or break selection from dropdown
 function onSubjectSelectChange() {
   const select = document.getElementById('tt-subject-select');
-  if (!select || select.value === '') return;
-  const idx = parseInt(select.value, 10);
-  const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
-  const subjects = getSubjectsForClass(cls);
-  const chosen = subjects[idx];
-  if (chosen) {
-    document.getElementById('tt-form-subject').value = chosen.subject || '';
-    document.getElementById('tt-form-code').value = chosen.code || '';
-    document.getElementById('tt-form-teacher').value = chosen.teacher || '';
+  if (!select || !select.value) return;
+  const val = select.value;
+
+  // Check if it's one of the break presets
+  const presetEntry = Object.values(BREAK_PRESETS).find(p => p.key === val);
+  if (presetEntry) {
+    document.getElementById('tt-form-period').value = presetEntry.period;
+    document.getElementById('tt-form-time').value = presetEntry.time;
+    document.getElementById('tt-form-subject').value = presetEntry.subject;
+    document.getElementById('tt-form-code').value = presetEntry.code;
+    document.getElementById('tt-form-teacher').value = presetEntry.teacher;
+    return;
+  }
+
+  // Academic subject
+  if (val.startsWith('sub_')) {
+    const idx = parseInt(val.replace('sub_', ''), 10);
+    const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
+    const subjects = getSubjectsForClass(cls);
+    const chosen = subjects[idx];
+    if (chosen) {
+      document.getElementById('tt-form-subject').value = chosen.subject || '';
+      document.getElementById('tt-form-code').value = chosen.code || '';
+      document.getElementById('tt-form-teacher').value = chosen.teacher || '';
+    }
   }
 }
 
@@ -418,16 +492,34 @@ function onSubjectSelectChange() {
 function syncSubjectDropdownWithForm() {
   const select = document.getElementById('tt-subject-select');
   const subInput = document.getElementById('tt-form-subject');
+  const timeInput = document.getElementById('tt-form-time');
   if (!select || !subInput) return;
+
   const val = subInput.value.trim().toLowerCase();
+  const timeVal = (timeInput?.value || '').trim();
   if (!val) {
     select.value = '';
     return;
   }
+
+  // Check if matches a break preset
+  if (val.includes('lunch')) {
+    select.value = BREAK_PRESETS.lunch.key;
+    return;
+  }
+  if (val.includes('break')) {
+    if (timeVal.startsWith('15:') || timeVal.includes('15:00')) {
+      select.value = BREAK_PRESETS.afternoon.key;
+    } else {
+      select.value = BREAK_PRESETS.morning.key;
+    }
+    return;
+  }
+
   const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
   const subjects = getSubjectsForClass(cls);
   const matchIdx = subjects.findIndex(s => s.subject.trim().toLowerCase() === val);
-  select.value = matchIdx >= 0 ? String(matchIdx) : '';
+  select.value = matchIdx >= 0 ? `sub_${matchIdx}` : '';
 }
 
 function renderAdminTimetable() {

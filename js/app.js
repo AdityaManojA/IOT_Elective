@@ -348,14 +348,15 @@ function renderTimetableCards() {
       rowsHTML = `<tr><td colspan="5" class="tt-empty-day">No periods scheduled for ${cls} on ${currentDay}.</td></tr>`;
     } else {
       periods.forEach(p => {
-        const isBreak = p.period === 'Break' || p.period === 'Lunch';
+        const isLunch = /lunch/i.test(p.period) || /lunch/i.test(p.subject);
+        const isBreak = isLunch || /break/i.test(p.period) || /break/i.test(p.subject);
         const isCurrent = !isBreak && isToday && isCurrentPeriod(p.time, nowMin);
 
         if (isBreak) {
           rowsHTML += `
             <tr class="tt-row break-row">
               <td colspan="5" class="tt-break-cell">
-                <span class="tt-break-pill">${p.period === 'Lunch' ? '🍱' : '☕'} ${p.subject} &nbsp;·&nbsp; ${p.time}</span>
+                <span class="tt-break-pill">${isLunch ? '🍱' : '☕'} ${p.subject} &nbsp;·&nbsp; ${p.time}</span>
               </td>
             </tr>`;
         } else {
