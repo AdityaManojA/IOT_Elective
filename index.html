@@ -575,7 +575,11 @@
           </form>
         </div>
         <div class="admin-list-section">
-          <h3>Periods for Selected Day</h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+            <h3 style="margin:0">📅 Periods for Selected Day</h3>
+            <button type="button" class="btn-ghost" id="tt-auto-renumber-btn" title="Automatically number periods sequentially (1, 2, Break, 3...)">🔢 Auto-Renumber</button>
+          </div>
+          <p style="font-size:11px;color:var(--text-muted);margin-bottom:12px">💡 Drag <span style="font-weight:700;color:var(--text-secondary)">⠿</span> or click <span style="font-weight:700;color:var(--text-secondary)">▲ ▼</span> to change period order.</p>
           <div id="admin-tt-list"></div>
         </div>
       </div>

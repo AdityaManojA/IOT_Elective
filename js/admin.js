@@ -295,57 +295,66 @@ function updateAchPreview() {
 
 /* ── ADMIN TIMETABLE & SUBJECT CATALOG ───────────────────────────────────── */
 let editingTT = null; // { day, cls, idx }
+let draggedPeriodIdx = null; // index of item currently being dragged
 
-// Retrieve all unique subjects from catalog + timetable days
-function getAllSubjects() {
+// Retrieve unique subjects relevant ONLY to the specified class
+function getSubjectsForClass(targetCls) {
   const map = new Map();
+  const cls = targetCls || document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
 
-  // 1. Stored subjects in catalog if any
+  // 1. Scan timetable days specifically for this class
+  const days = (window.App.data.timetable && window.App.data.timetable.days) || {};
+  Object.values(days).forEach(dayObj => {
+    if (!dayObj || typeof dayObj !== 'object') return;
+    const periods = dayObj[cls];
+    if (Array.isArray(periods)) {
+      periods.forEach(p => {
+        if (!p || !p.subject) return;
+        const sub = p.subject.trim();
+        if (/^(short break|lunch break|break|lunch)$/i.test(sub)) return;
+        const key = sub.toLowerCase();
+        if (!map.has(key)) {
+          map.set(key, {
+            subject: sub,
+            code: (p.code || '').trim(),
+            teacher: (p.teacher || '').trim(),
+            cls: cls
+          });
+        } else {
+          const existing = map.get(key);
+          if (!existing.code && p.code) existing.code = p.code.trim();
+          if (!existing.teacher && p.teacher) existing.teacher = p.teacher.trim();
+        }
+      });
+    }
+  });
+
+  // 2. Add saved subjects explicitly associated with this class
   if (Array.isArray(window.App.data.savedSubjects)) {
     window.App.data.savedSubjects.forEach(s => {
-      if (s && s.subject) {
+      if (s && s.subject && (s.cls === cls || (!s.cls && map.has(s.subject.trim().toLowerCase())))) {
         const key = s.subject.trim().toLowerCase();
-        map.set(key, {
-          subject: s.subject.trim(),
-          code: (s.code || '').trim(),
-          teacher: (s.teacher || '').trim()
-        });
+        if (!map.has(key)) {
+          map.set(key, {
+            subject: s.subject.trim(),
+            code: (s.code || '').trim(),
+            teacher: (s.teacher || '').trim(),
+            cls: cls
+          });
+        } else {
+          const existing = map.get(key);
+          if (s.code) existing.code = s.code.trim();
+          if (s.teacher) existing.teacher = s.teacher.trim();
+        }
       }
     });
   }
 
-  // 2. Harvest from all timetable days
-  const days = (window.App.data.timetable && window.App.data.timetable.days) || {};
-  Object.values(days).forEach(dayObj => {
-    if (!dayObj || typeof dayObj !== 'object') return;
-    Object.values(dayObj).forEach(periods => {
-      if (Array.isArray(periods)) {
-        periods.forEach(p => {
-          if (!p || !p.subject) return;
-          const sub = p.subject.trim();
-          if (/^(short break|lunch break|break|lunch)$/i.test(sub)) return;
-          const key = sub.toLowerCase();
-          if (!map.has(key)) {
-            map.set(key, {
-              subject: sub,
-              code: (p.code || '').trim(),
-              teacher: (p.teacher || '').trim()
-            });
-          } else {
-            const existing = map.get(key);
-            if (!existing.code && p.code) existing.code = p.code.trim();
-            if (!existing.teacher && p.teacher) existing.teacher = p.teacher.trim();
-          }
-        });
-      }
-    });
-  });
-
   return Array.from(map.values()).sort((a, b) => a.subject.localeCompare(b.subject));
 }
 
-// Save or update a subject in the catalog
-function saveSubjectToCatalog(subject, code, teacher) {
+// Save or update a subject in the catalog for that specific class
+function saveSubjectToCatalog(cls, subject, code, teacher) {
   if (!subject) return;
   const sub = subject.trim();
   if (/^(short break|lunch break|break|lunch)$/i.test(sub)) return;
@@ -355,8 +364,11 @@ function saveSubjectToCatalog(subject, code, teacher) {
   }
 
   const key = sub.toLowerCase();
-  const existingIdx = window.App.data.savedSubjects.findIndex(s => s && s.subject && s.subject.trim().toLowerCase() === key);
+  const existingIdx = window.App.data.savedSubjects.findIndex(
+    s => s && s.subject && s.subject.trim().toLowerCase() === key && s.cls === cls
+  );
   const entry = {
+    cls: cls,
     subject: sub,
     code: (code || '').trim(),
     teacher: (teacher || '').trim()
@@ -369,14 +381,14 @@ function saveSubjectToCatalog(subject, code, teacher) {
   }
 }
 
-// Populate the existing subjects dropdown
+// Populate the existing subjects dropdown with subjects relevant ONLY to selected class
 function populateSubjectDropdown() {
   const select = document.getElementById('tt-subject-select');
   if (!select) return;
-  const currentSub = document.getElementById('tt-form-subject')?.value.trim().toLowerCase();
-  const subjects = getAllSubjects();
+  const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
+  const subjects = getSubjectsForClass(cls);
 
-  select.innerHTML = '<option value="">-- Choose existing subject (auto-fills info) --</option>' +
+  select.innerHTML = `<option value="">-- Choose existing subject for ${cls} --</option>` +
     subjects.map((s, idx) => {
       const parts = [s.subject];
       if (s.code) parts.push(`[${s.code}]`);
@@ -384,9 +396,7 @@ function populateSubjectDropdown() {
       return `<option value="${idx}">${parts.join(' ')}</option>`;
     }).join('');
 
-  if (currentSub) {
-    syncSubjectDropdownWithForm();
-  }
+  syncSubjectDropdownWithForm();
 }
 
 // Handle subject selection from dropdown
@@ -394,7 +404,8 @@ function onSubjectSelectChange() {
   const select = document.getElementById('tt-subject-select');
   if (!select || select.value === '') return;
   const idx = parseInt(select.value, 10);
-  const subjects = getAllSubjects();
+  const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
+  const subjects = getSubjectsForClass(cls);
   const chosen = subjects[idx];
   if (chosen) {
     document.getElementById('tt-form-subject').value = chosen.subject || '';
@@ -413,7 +424,8 @@ function syncSubjectDropdownWithForm() {
     select.value = '';
     return;
   }
-  const subjects = getAllSubjects();
+  const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
+  const subjects = getSubjectsForClass(cls);
   const matchIdx = subjects.findIndex(s => s.subject.trim().toLowerCase() === val);
   select.value = matchIdx >= 0 ? String(matchIdx) : '';
 }
@@ -440,6 +452,134 @@ function renderAdminTimetable() {
   renderAdminTimetableDay();
 }
 
+/* ── DRAG AND DROP & REORDERING HANDLERS ──────────────────────────────────── */
+function handleDragStart(e, idx) {
+  draggedPeriodIdx = idx;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', String(idx));
+  e.currentTarget.classList.add('dragging');
+}
+
+function handleDragEnd(e) {
+  draggedPeriodIdx = null;
+  document.querySelectorAll('.admin-list-item').forEach(el => {
+    el.classList.remove('dragging', 'drag-over-top', 'drag-over-bottom');
+  });
+}
+
+function handleDragOver(e, idx) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  if (draggedPeriodIdx === null || draggedPeriodIdx === idx) return;
+
+  const rect = e.currentTarget.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  const isTop = e.clientY < midY;
+
+  e.currentTarget.classList.toggle('drag-over-top', isTop);
+  e.currentTarget.classList.toggle('drag-over-bottom', !isTop);
+}
+
+function handleDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
+}
+
+function handleDrop(e, targetIdx, day, cls) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
+  if (draggedPeriodIdx === null || draggedPeriodIdx === targetIdx) return;
+
+  const rect = e.currentTarget.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  const isTop = e.clientY < midY;
+
+  const periods = window.App.data.timetable.days[day][cls];
+  const [movedItem] = periods.splice(draggedPeriodIdx, 1);
+
+  let newIdx = targetIdx;
+  if (!isTop && draggedPeriodIdx < targetIdx) {
+    newIdx = targetIdx;
+  } else if (!isTop && draggedPeriodIdx > targetIdx) {
+    newIdx = targetIdx + 1;
+  } else if (isTop && draggedPeriodIdx < targetIdx) {
+    newIdx = targetIdx - 1;
+  }
+  newIdx = Math.max(0, Math.min(newIdx, periods.length));
+
+  periods.splice(newIdx, 0, movedItem);
+
+  // Sync editing pointer if this period is actively being edited
+  if (editingTT && editingTT.day === day && editingTT.cls === cls) {
+    if (editingTT.idx === draggedPeriodIdx) {
+      editingTT.idx = newIdx;
+    } else if (draggedPeriodIdx < editingTT.idx && newIdx >= editingTT.idx) {
+      editingTT.idx--;
+    } else if (draggedPeriodIdx > editingTT.idx && newIdx <= editingTT.idx) {
+      editingTT.idx++;
+    }
+  }
+
+  window.saveData();
+  if (window.renderTimetable) window.renderTimetable();
+  renderAdminTimetableDay();
+  window.showToast('Period order updated!', 'success');
+}
+
+function moveTTPeriod(day, cls, idx, direction) {
+  const dayData = window.App.data.timetable.days[day];
+  if (!dayData || !dayData[cls]) return;
+  const periods = dayData[cls];
+  const targetIdx = idx + direction;
+  if (targetIdx < 0 || targetIdx >= periods.length) return;
+
+  // Swap
+  const temp = periods[idx];
+  periods[idx] = periods[targetIdx];
+  periods[targetIdx] = temp;
+
+  // Update editingTT index if active
+  if (editingTT && editingTT.day === day && editingTT.cls === cls) {
+    if (editingTT.idx === idx) {
+      editingTT.idx = targetIdx;
+    } else if (editingTT.idx === targetIdx) {
+      editingTT.idx = idx;
+    }
+  }
+
+  window.saveData();
+  if (window.renderTimetable) window.renderTimetable();
+  renderAdminTimetableDay();
+  window.showToast('Period order updated!', 'success');
+}
+
+function autoRenumberPeriods() {
+  const day = document.getElementById('admin-tt-day-select')?.value || 'Monday';
+  const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
+  const dayData = window.App.data.timetable.days[day];
+  if (!dayData || !dayData[cls] || !dayData[cls].length) {
+    window.showToast('No periods to renumber for this class.', 'info');
+    return;
+  }
+
+  let counter = 1;
+  dayData[cls].forEach(p => {
+    const sub = (p.subject || '').trim().toLowerCase();
+    const per = (p.period || '').trim().toLowerCase();
+    if (sub.includes('lunch') || per === 'lunch') {
+      p.period = 'Lunch';
+    } else if (sub.includes('break') || per === 'break') {
+      p.period = 'Break';
+    } else {
+      p.period = String(counter++);
+    }
+  });
+
+  window.saveData();
+  if (window.renderTimetable) window.renderTimetable();
+  renderAdminTimetableDay();
+  window.showToast('Periods renumbered sequentially!', 'success');
+}
+
 function renderAdminTimetableDay() {
   const day = document.getElementById('admin-tt-day-select')?.value || 'Monday';
   const cls = document.getElementById('admin-tt-class-select')?.value || 'S7 MRE';
@@ -452,8 +592,19 @@ function renderAdminTimetableDay() {
   periods.forEach((p, idx) => {
     const isEditing = editingTT && editingTT.day === day && editingTT.cls === cls && editingTT.idx === idx;
     const item = document.createElement('div');
-    item.className = 'admin-list-item' + (isEditing ? ' active-editing' : '');
+    item.className = 'admin-list-item draggable' + (isEditing ? ' active-editing' : '');
+    item.draggable = true;
+    item.dataset.index = idx;
+
+    // Drag-and-drop listeners
+    item.addEventListener('dragstart', (e) => handleDragStart(e, idx));
+    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('dragover', (e) => handleDragOver(e, idx));
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('drop', (e) => handleDrop(e, idx, day, cls));
+
     item.innerHTML = `
+      <div class="drag-handle" title="Drag to reorder">⠿</div>
       <div class="ali-content">
         <div class="ali-title" style="font-size:13px">
           <span style="color:var(--text-muted);font-family:var(--font-mono);margin-right:8px">P${p.period}</span>
@@ -466,8 +617,10 @@ function renderAdminTimetableDay() {
         </div>
       </div>
       <div class="ali-actions">
-        <button class="btn-sm btn-secondary" onclick="editTTPeriod('${day}', '${cls}', ${idx})" title="Edit period">✏️</button>
-        <button class="btn-sm btn-danger" onclick="deleteTTPeriod('${day}', '${cls}', ${idx})" title="Delete period">🗑️</button>
+        <button type="button" class="btn-sm btn-ghost" onclick="moveTTPeriod('${day}', '${cls}', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Move Up">▲</button>
+        <button type="button" class="btn-sm btn-ghost" onclick="moveTTPeriod('${day}', '${cls}', ${idx}, 1)" ${idx === periods.length - 1 ? 'disabled' : ''} title="Move Down">▼</button>
+        <button type="button" class="btn-sm btn-secondary" onclick="editTTPeriod('${day}', '${cls}', ${idx})" title="Edit period">✏️</button>
+        <button type="button" class="btn-sm btn-danger" onclick="deleteTTPeriod('${day}', '${cls}', ${idx})" title="Delete period">🗑️</button>
       </div>`;
     list.appendChild(item);
   });
@@ -486,7 +639,10 @@ function editTTPeriod(day, cls, idx) {
   const daySel = document.getElementById('admin-tt-day-select');
   if (daySel) daySel.value = day;
   const clsSel = document.getElementById('admin-tt-class-select');
-  if (clsSel) clsSel.value = cls;
+  if (clsSel) {
+    clsSel.value = cls;
+    populateSubjectDropdown();
+  }
 
   // Fill form
   document.getElementById('tt-form-period').value = p.period || '';
@@ -533,8 +689,8 @@ function addTTPeriod() {
 
   if (!subject || !time) { window.showToast('Subject and time are required.', 'error'); return; }
 
-  // Save subject to catalog with code and faculty for future dropdown selection
-  saveSubjectToCatalog(subject, code, teacher);
+  // Save subject to class-specific catalog
+  saveSubjectToCatalog(cls, subject, code, teacher);
 
   if (!window.App.data.timetable.days[day]) window.App.data.timetable.days[day] = {};
   if (!window.App.data.timetable.days[day][cls]) window.App.data.timetable.days[day][cls] = [];
@@ -744,6 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const ttClassSel = document.getElementById('admin-tt-class-select');
   if (ttClassSel) ttClassSel.addEventListener('change', () => {
     if (editingTT) cancelEditTTPeriod();
+    populateSubjectDropdown();
     renderAdminTimetableDay();
   });
   const ttSubSel = document.getElementById('tt-subject-select');
@@ -752,6 +909,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (ttFormSub) ttFormSub.addEventListener('input', syncSubjectDropdownWithForm);
   const ttCancelBtn = document.getElementById('tt-form-cancel');
   if (ttCancelBtn) ttCancelBtn.addEventListener('click', cancelEditTTPeriod);
+  const autoRenumberBtn = document.getElementById('tt-auto-renumber-btn');
+  if (autoRenumberBtn) autoRenumberBtn.addEventListener('click', autoRenumberPeriods);
   document.getElementById('tt-form').addEventListener('submit', e => { e.preventDefault(); addTTPeriod(); });
 
   // Settings
