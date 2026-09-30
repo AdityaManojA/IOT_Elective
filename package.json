@@ -1,0 +1,17 @@
+{
+  "name": "smart-digital-notice-board",
+  "version": "1.0.0",
+  "description": "Smart Digital Notice Board - Department of Mechatronics Engineering",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y serve . -l 5173",
+    "start": "npx -y serve . -l 5173"
+  },
+  "keywords": [
+    "iot",
+    "noticeboard",
+    "mechatronics"
+  ],
+  "author": "Naina, Jobis, Evan, Indrajith",
+  "license": "MIT"
+}
