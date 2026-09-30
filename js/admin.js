@@ -384,27 +384,27 @@ function saveSubjectToCatalog(cls, subject, code, teacher) {
 const BREAK_PRESETS = {
   morning: {
     key: 'preset_morning_break',
-    label: '☕ Morning Short Break (11:00–11:15)',
+    label: '☕ Morning Short Break (10:40–10:50)',
     period: 'Break',
-    time: '11:00–11:15',
+    time: '10:40–10:50',
     subject: 'Short Break',
     code: '-',
     teacher: '-'
   },
   lunch: {
     key: 'preset_lunch_break',
-    label: '🍱 Lunch Break (13:15–14:00)',
+    label: '🍱 Lunch Break (12:30-1:20)',
     period: 'Lunch',
-    time: '13:15–14:00',
+    time: '12:30-1:20',
     subject: 'Lunch Break',
     code: '-',
     teacher: '-'
   },
   afternoon: {
     key: 'preset_afternoon_break',
-    label: '☕ Afternoon Short Break (15:00–15:15)',
+    label: '☕ Afternoon Short Break (2:10–2:20)',
     period: 'Break',
-    time: '15:00–15:15',
+    time: '2:10–2:20',
     subject: 'Short Break',
     code: '-',
     teacher: '-'
