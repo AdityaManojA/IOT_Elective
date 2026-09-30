@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Raspberry Pi Smart Notice Board — Notices, Timetable, Student Achievements, and Weather in one interactive digital display." />
+  <title>Department of Mechatronics Engineering — Digital Notice Board</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     APP SHELL
+═══════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- TOP HEADER -->
+  <header id="header">
+
+    <!-- College Brand: logo upload + dept name -->
+    <div class="logo-section">
+      <div class="college-logo-wrap" id="college-logo-wrap" title="Click to upload College Logo">
+        <input type="file" id="college-logo-input" accept="image/*" aria-label="Upload college logo" />
+        <img id="college-logo-img" alt="College Logo" />
+        <span class="logo-placeholder" id="logo-placeholder">🏛️</span>
+        <span class="logo-upload-hint" id="logo-upload-hint">Upload</span>
+      </div>
+      <div class="logo-text">
+        <span class="logo-dept" id="board-institution">Department of Mechatronics Engineering</span>
+      </div>
+    </div>
+
+    <div class="header-divider"></div>
+
+    <!-- Clock -->
+    <div id="clock-display">
+      <div>
+        <div id="clock-time">00:00:00</div>
+        <div id="clock-date">Loading…</div>
+      </div>
+    </div>
+
+    <!-- Right cluster -->
+    <div class="header-right">
+      <!-- Status -->
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>Pi Online</span>
+      </div>
+
+      <!-- Weather pill -->
+      <div id="header-weather">
+        <span id="hw-icon">⛅</span>
+        <span class="hw-temp" id="hw-temp">28°C</span>
+        <span id="hw-cond">Loading…</span>
+      </div>
+
+      <!-- Theme sunset toggle pill -->
+      <button id="theme-toggle-btn" class="theme-toggle-badge" title="Sunset auto dark theme (Click to preview/cycle mode)">
+        <span id="theme-badge-icon">☀️</span>
+        <span id="theme-badge-text">Day Mode</span>
+      </button>
+
+      <!-- Fullscreen -->
+      <button id="fullscreen-btn" title="Toggle Fullscreen">⛶</button>
+
+      <!-- Admin -->
+      <button id="admin-trigger-btn">
+        Admin
+      </button>
+    </div>
+
+  </header>
+
+  <!-- SIDE NAV (desktop) -->
+  <nav id="sidenav" role="navigation" aria-label="Board sections">
+    <button class="nav-btn active" id="nav-notices" data-view="notices" title="Notices" aria-label="Notices">
+      <div class="nav-indicator"></div>
+      📋
+      <span class="nav-label">Board</span>
+    </button>
+    <button class="nav-btn" id="nav-achievements" data-view="achievements" title="Achievements" aria-label="Achievements">
+      <div class="nav-indicator"></div>
+      🏆
+      <span class="nav-label">Stars</span>
+    </button>
+    <button class="nav-btn" id="nav-timetable" data-view="timetable" title="Timetable" aria-label="Timetable">
+      <div class="nav-indicator"></div>
+      📅
+      <span class="nav-label">Time</span>
+    </button>
+    <button class="nav-btn" id="nav-weather" data-view="weather" title="Weather" aria-label="Weather">
+      <div class="nav-indicator"></div>
+      🌤️
+      <span class="nav-label">Sky</span>
+    </button>
+  </nav>
+
+  <!-- MOBILE BOTTOM NAV (phones) -->
+  <nav id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <button class="mobile-nav-btn active" id="mnav-notices" data-view="notices" aria-label="Notices">
+      📋<span class="nav-label">Board</span>
+    </button>
+    <button class="mobile-nav-btn" id="mnav-achievements" data-view="achievements" aria-label="Achievements">
+      🏆<span class="nav-label">Stars</span>
+    </button>
+    <button class="mobile-nav-btn" id="mnav-timetable" data-view="timetable" aria-label="Timetable">
+      📅<span class="nav-label">Time</span>
+    </button>
+    <button class="mobile-nav-btn" id="mnav-weather" data-view="weather" aria-label="Weather">
+      🌤️<span class="nav-label">Sky</span>
+    </button>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content" role="main">
+
+    <!-- ── NOTICES VIEW ─────────────────────────────────────── -->
+    <section id="view-notices" class="view active" aria-label="Notices Board">
+      <div class="section-header">
+        <h1 class="section-title">
+          <div class="st-icon">📋</div>
+          Notice Board
+        </h1>
+        <div class="notices-search">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="notice-search" placeholder="Search notices…" aria-label="Search notices" />
+        </div>
+      </div>
+
+      <div class="notices-filter-bar">
+        <div id="notice-filter-chips" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      </div>
+
+      <div class="notices-grid" id="notices-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- ── ACHIEVEMENTS VIEW ────────────────────────────────── -->
+    <section id="view-achievements" class="view" aria-label="Student Achievements">
+      <div class="section-header">
+        <h1 class="section-title">
+          <div class="st-icon">🏆</div>
+          Hall of Fame
+        </h1>
+        <span style="font-size:13px;color:var(--text-secondary);">Student Achievements &amp; Awards</span>
+      </div>
+      <div class="achievements-showcase" id="achievements-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- ── TIMETABLE VIEW ──────────────────────────────────── -->
+    <section id="view-timetable" class="view" aria-label="Timetable">
+      <div class="section-header">
+        <div class="tt-header-left">
+          <h1 class="section-title">
+            <div class="st-icon">📅</div>
+            Mechatronics Engineering Timetable
+          </h1>
+          <span class="tt-classes-pill">S7 · S5 · S3 MRE</span>
+        </div>
+        <div class="tt-class-filter-bar" id="tt-class-filters">
+          <button class="tt-filter-pill active" data-class="all">All 3 Classes</button>
+          <button class="tt-filter-pill" data-class="S7 MRE">S7 MRE</button>
+          <button class="tt-filter-pill" data-class="S5 MRE">S5 MRE</button>
+          <button class="tt-filter-pill" data-class="S3 MRE">S3 MRE</button>
+        </div>
+      </div>
+      <div class="timetable-controls">
+        <div class="day-pills" id="day-pills"><!-- Rendered by app.js --></div>
+        <div class="tt-day-label" id="tt-day-label">Showing S7, S5, and S3 MRE schedule</div>
+      </div>
+      <div class="timetable-classes-grid" id="tt-classes-grid">
+        <!-- Rendered by app.js: 3 class tables for S7, S5, and S3 MRE -->
+      </div>
+    </section>
+
+    <!-- ── WEATHER VIEW ────────────────────────────────────── -->
+    <section id="view-weather" class="view" aria-label="Weather">
+      <div class="section-header">
+        <h1 class="section-title">
+          <div class="st-icon">🌤️</div>
+          Campus Weather
+        </h1>
+        <span style="font-size:13px;color:var(--text-secondary);" id="w-location">Loading…</span>
+      </div>
+
+      <div class="weather-layout">
+        <!-- Main card -->
+        <div class="weather-main-card">
+          <div class="weather-icon-big" id="w-icon">⛅</div>
+          <div class="weather-temp-big" id="w-temp">--<span class="weather-unit">°C</span></div>
+          <div class="weather-condition" id="w-condition">Loading…</div>
+          <div class="weather-feels"    id="w-feels">Feels like --°C</div>
+          <div class="weather-location">📍 <span id="w-location-sub">Campus</span></div>
+
+          <div class="weather-stats-grid">
+            <div class="weather-stat">
+              <span class="ws-icon">💧</span>
+              <div>
+                <div class="ws-label">Humidity</div>
+                <div class="ws-value" id="w-humidity">--%</div>
+              </div>
+            </div>
+            <div class="weather-stat">
+              <span class="ws-icon">💨</span>
+              <div>
+                <div class="ws-label">Wind Speed</div>
+                <div class="ws-value" id="w-wind">-- km/h</div>
+              </div>
+            </div>
+            <div class="weather-stat">
+              <span class="ws-icon">🌡️</span>
+              <div>
+                <div class="ws-label">Pressure</div>
+                <div class="ws-value" id="w-pressure">-- hPa</div>
+              </div>
+            </div>
+            <div class="weather-stat">
+              <span class="ws-icon">🌧️</span>
+              <div>
+                <div class="ws-label">Rain Chance</div>
+                <div class="ws-value" id="w-rain">--%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom endpoint info -->
+          <div class="weather-endpoint-info mt-16" id="w-endpoint-info" style="display:none;"></div>
+        </div>
+
+        <!-- Side cards -->
+        <div class="weather-side">
+          <div class="weather-forecast-card">
+            <h4>⏱ Hourly Forecast</h4>
+            <div class="forecast-hourly" id="w-hourly"><!-- Rendered by app.js --></div>
+          </div>
+          <div class="weather-daily-card">
+            <h4>📆 4-Day Outlook</h4>
+            <div id="w-daily"><!-- Rendered by app.js --></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /#main-content -->
+
+  <!-- Footer -->
+  <footer class="board-footer" role="contentinfo">
+    <span class="footer-names">
+      ✨ Created by
+      <span class="footer-dot">·</span> Naina
+      <span class="footer-dot">·</span> Jobis
+      <span class="footer-dot">·</span> Evan
+      <span class="footer-dot">·</span> Indrajith
+    </span>
+  </footer>
+
+  <!-- Kiosk progress bar -->
+  <div id="kiosk-progress-bar" role="progressbar" aria-label="Kiosk auto-rotate progress">
+    <div id="kiosk-progress-fill"></div>
+  </div>
+
+</div><!-- /#app -->
+
+<!-- ═══════════════════════════════════════════════════════
+     NOTICE DETAIL MODAL
+═══════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="notice-modal" role="dialog" aria-modal="true" aria-labelledby="notice-modal-title">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="notice-modal-title"></h2>
+      <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body" id="notice-modal-body"></div>
+    <div class="modal-footer-meta">
+      <span id="notice-modal-author"></span>
+      <span id="notice-modal-date"></span>
+      <span id="notice-modal-cat"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ACHIEVEMENT DETAIL MODAL
+═══════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="ach-modal" role="dialog" aria-modal="true" aria-labelledby="ach-modal-title">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="ach-modal-title"></h2>
+      <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <img id="ach-modal-img" src="" alt="Achievement photo" style="width:100%;border-radius:10px;margin-bottom:16px;display:none;max-height:240px;object-fit:cover;" />
+    <div class="modal-body">
+      <p><strong>🎓 Student:</strong> <span id="ach-modal-student"></span></p>
+      <p style="margin-top:8px"><strong>🏆 Competition:</strong> <span id="ach-modal-comp"></span></p>
+      <p style="margin-top:8px"><strong>🥇 Award:</strong> <span id="ach-modal-award"></span></p>
+      <p style="margin-top:12px" id="ach-modal-desc"></p>
+      <div class="modal-footer-meta" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-glass)">
+        <span>📅 <span id="ach-modal-date"></span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ADMIN LOGIN SCREEN
+═══════════════════════════════════════════════════════ -->
+<div id="admin-login-screen" role="dialog" aria-modal="true" aria-label="Admin Login">
+  <div class="login-card">
+    <div class="lc-logo">
+      <div class="lc-icon">🛠️</div>
+      <div>
+        <div style="font-size:12px;color:var(--text-secondary)">Dept. of Mechatronics</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-primary)">Admin Portal</div>
+      </div>
+    </div>
+    <h2>Sign In</h2>
+    <p class="lc-subtitle">Enter your credentials to manage board content.</p>
+
+    <div id="login-error" class="login-error"></div>
+
+    <form id="login-form" autocomplete="off">
+      <div class="form-group">
+        <label for="login-username">Username</label>
+        <input type="text" id="login-username" placeholder="admin" autocomplete="username" required />
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn-primary" id="login-submit-btn">Sign In</button>
+    </form>
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn-secondary" id="login-cancel" style="width:100%;justify-content:center">Cancel</button>
+    </div>
+    <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:14px">
+      Default: <code style="color:var(--accent-primary)">admin</code> / <code style="color:var(--accent-primary)">admin123</code>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ADMIN DASHBOARD
+═══════════════════════════════════════════════════════ -->
+<div id="admin-dashboard" role="dialog" aria-modal="true" aria-label="Admin Dashboard">
+  <div id="admin-topbar">
+    <div class="at-title">🛠️ Admin Dashboard</div>
+    <div class="at-tabs">
+      <button class="admin-tab active" id="atab-notices"      data-panel="notices">📋 Notices</button>
+      <button class="admin-tab"        id="atab-achievements" data-panel="achievements">🏆 Achievements</button>
+      <button class="admin-tab"        id="atab-timetable"    data-panel="timetable">📅 Timetable</button>
+      <button class="admin-tab"        id="atab-settings"     data-panel="settings">⚙️ Settings</button>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <button class="btn-secondary" id="admin-close-btn">Logout &amp; Close</button>
+    </div>
+  </div>
+
+  <div id="admin-body">
+
+    <!-- ── NOTICES PANEL ─────────────────────────────────── -->
+    <div class="admin-panel active" id="apanel-notices">
+      <div class="admin-two-col">
+        <!-- Form -->
+        <div class="admin-form-section">
+          <h3 id="notice-form-heading">➕ Add Notice</h3>
+          <form id="notice-form">
+            <div class="form-group">
+              <label for="notice-form-title">Title *</label>
+              <input type="text" id="notice-form-title" placeholder="Notice title…" required />
+            </div>
+            <div class="form-group">
+              <label for="notice-form-category">Category</label>
+              <select id="notice-form-category">
+                <option>Academic</option>
+                <option>Events</option>
+                <option>Placement</option>
+                <option>General</option>
+                <option>Circular</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notice-form-priority">Priority</label>
+              <select id="notice-form-priority">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notice-form-date">Date Posted</label>
+              <input type="date" id="notice-form-date" />
+            </div>
+            <div class="form-group">
+              <label for="notice-form-deadline">Deadline / Expiry Date <small style="color:var(--text-muted)">(notice removed after this date)</small></label>
+              <input type="date" id="notice-form-deadline" />
+            </div>
+            <div class="form-group">
+              <label for="notice-form-author">Author / Department</label>
+              <input type="text" id="notice-form-author" placeholder="e.g. HOD, Dept of CSE" />
+            </div>
+            <div class="form-group">
+              <label for="notice-form-content">Content *</label>
+              <textarea id="notice-form-content" placeholder="Full notice text…" rows="4" required></textarea>
+            </div>
+            <div class="toggle-wrap">
+              <span>Active (visible on board)</span>
+              <label class="toggle" for="notice-form-active">
+                <input type="checkbox" id="notice-form-active" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px">
+              <button type="submit" class="btn-primary" style="flex:1">💾 Save Notice</button>
+              <button type="button" class="btn-secondary" id="notice-form-cancel" style="display:none">✕ Cancel</button>
+            </div>
+          </form>
+        </div>
+        <!-- List -->
+        <div class="admin-list-section">
+          <h3>All Notices</h3>
+          <div id="admin-notices-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACHIEVEMENTS PANEL ────────────────────────────── -->
+    <div class="admin-panel" id="apanel-achievements">
+      <div class="admin-two-col" style="grid-template-columns:1.2fr 1fr">
+        <!-- Form + preview -->
+        <div>
+          <div class="admin-form-section">
+            <h3 id="ach-form-heading">➕ Add Achievement</h3>
+            <form id="ach-form">
+              <!-- Photo upload zone -->
+              <div class="upload-zone mb-16" id="ach-upload-zone" style="margin-bottom:16px">
+                <input type="file" id="ach-file-input" accept="image/*" />
+                <div class="uz-icon">📸</div>
+                <p>Drag &amp; drop photo here or click to browse</p>
+                <span>PNG, JPG, WEBP — max 10 MB</span>
+              </div>
+              <div class="form-group">
+                <label for="ach-form-imageurl">Or paste Image URL</label>
+                <input type="url" id="ach-form-imageurl" placeholder="https://…" />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-name">Student Name *</label>
+                <input type="text" id="ach-form-name" placeholder="Full name" required />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-rollno">Roll No.</label>
+                <input type="text" id="ach-form-rollno" placeholder="S5-IOT-XX" />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-title">Achievement Title *</label>
+                <input type="text" id="ach-form-title" placeholder="e.g. 1st Prize – SIH 2026" required />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-competition">Competition / Event</label>
+                <input type="text" id="ach-form-competition" placeholder="Event name" />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-award">Award / Prize</label>
+                <input type="text" id="ach-form-award" placeholder="e.g. Gold Trophy &amp; ₹1,00,000" />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-category">Category</label>
+                <select id="ach-form-category">
+                  <option>IoT &amp; Robotics</option>
+                  <option>Research</option>
+                  <option>Cybersecurity</option>
+                  <option>Robotics</option>
+                  <option>Sports</option>
+                  <option>Cultural</option>
+                  <option>Academic</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ach-form-date">Date</label>
+                <input type="date" id="ach-form-date" />
+              </div>
+              <div class="form-group">
+                <label for="ach-form-desc">Description</label>
+                <textarea id="ach-form-desc" placeholder="Brief description of achievement…"></textarea>
+              </div>
+              <div class="toggle-wrap">
+                <span>Featured (highlighted on board)</span>
+                <label class="toggle" for="ach-form-featured">
+                  <input type="checkbox" id="ach-form-featured" />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:16px">
+                <button type="submit" class="btn-primary" style="flex:1">💾 Save Achievement</button>
+                <button type="button" class="btn-secondary" id="ach-form-cancel" style="display:none">✕ Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Live preview -->
+          <div class="preview-section mt-16" style="margin-top:16px">
+            <h4>👁 Live Preview</h4>
+            <div class="preview-card-mini">
+              <div class="pcm-img-placeholder" id="preview-img-placeholder">🏆</div>
+              <img id="preview-img" src="" alt="Preview" class="pcm-img" style="display:none;" />
+              <div class="pcm-body">
+                <div class="pcm-title"  id="preview-title">Achievement Title</div>
+                <div class="pcm-student" id="preview-student">🎓 Student Name</div>
+                <div class="pcm-award"  id="preview-award">🥇 Award</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="admin-list-section">
+          <h3>All Achievements</h3>
+          <div id="admin-ach-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TIMETABLE PANEL ───────────────────────────────── -->
+    <div class="admin-panel" id="apanel-timetable">
+      <div class="admin-two-col">
+        <div class="admin-form-section">
+          <h3>➕ Add Period</h3>
+          <div class="form-group">
+            <label for="admin-tt-day-select">Day</label>
+            <select id="admin-tt-day-select" class="batch-select" style="width:100%"></select>
+          </div>
+          <div class="form-group">
+            <label for="admin-tt-class-select">Class / Batch</label>
+            <select id="admin-tt-class-select" class="batch-select" style="width:100%">
+              <option value="S7 MRE">S7 MRE (Semester 7 Mechatronics)</option>
+              <option value="S5 MRE">S5 MRE (Semester 5 Mechatronics)</option>
+              <option value="S3 MRE">S3 MRE (Semester 3 Mechatronics)</option>
+            </select>
+          </div>
+          <form id="tt-form">
+            <div class="form-group">
+              <label for="tt-form-period">Period Number</label>
+              <input type="text" id="tt-form-period" placeholder="e.g. 1, Break, Lunch" />
+            </div>
+            <div class="form-group">
+              <label for="tt-form-time">Time Range *</label>
+              <input type="text" id="tt-form-time" placeholder="09:00–10:00" required />
+            </div>
+            <div class="form-group">
+              <label for="tt-form-subject">Subject *</label>
+              <input type="text" id="tt-form-subject" placeholder="Subject name" required />
+            </div>
+            <div class="form-group">
+              <label for="tt-form-code">Subject Code</label>
+              <input type="text" id="tt-form-code" placeholder="IOT301" />
+            </div>
+            <div class="form-group">
+              <label for="tt-form-teacher">Faculty</label>
+              <input type="text" id="tt-form-teacher" placeholder="Prof. Name" />
+            </div>
+            <div class="form-group">
+              <label for="tt-form-room">Room</label>
+              <input type="text" id="tt-form-room" placeholder="LH-204" />
+            </div>
+            <button type="submit" class="btn-primary">➕ Add Period</button>
+          </form>
+        </div>
+        <div class="admin-list-section">
+          <h3>Periods for Selected Day</h3>
+          <div id="admin-tt-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS PANEL ────────────────────────────────── -->
+    <div class="admin-panel" id="apanel-settings">
+      <div class="settings-grid">
+
+        <!-- Board Identity -->
+        <div class="settings-card">
+          <h3>🏫 Board Identity</h3>
+          <div class="form-group">
+            <label for="set-institution">Department Name</label>
+            <input type="text" id="set-institution" placeholder="Department of Mechatronics Engineering" />
+          </div>
+          <div class="form-group">
+            <label for="set-board-title">Secondary Title / Tagline</label>
+            <input type="text" id="set-board-title" placeholder="Digital Campus Display" />
+          </div>
+          <div class="form-group">
+            <label>College Logo</label>
+            <div class="settings-logo-row">
+              <div class="settings-logo-preview-box">
+                <img id="set-logo-preview" alt="College Logo Preview" style="display:none;max-height:44px;max-width:90px;object-fit:contain;" />
+                <span id="set-logo-preview-empty" style="font-size:11px;color:var(--text-muted);">No logo uploaded</span>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <label class="btn-secondary" style="cursor:pointer;margin:0;">
+                  📁 Select Logo
+                  <input type="file" id="set-logo-file" accept="image/*" style="display:none;" />
+                </label>
+                <button type="button" class="btn-danger" id="set-logo-remove-btn" style="display:none;">✕ Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather Integration -->
+        <div class="settings-card">
+          <h3>🌦️ Weather Integration</h3>
+          <div class="form-group">
+            <label for="set-weather-endpoint">Custom API Endpoint <small style="color:var(--text-muted)">(from your Pi weather project)</small></label>
+            <input type="url" id="set-weather-endpoint" placeholder="http://192.168.1.50:5000/api/weather" />
+          </div>
+          <div class="form-group">
+            <label for="set-weather-city">Fallback Location Name</label>
+            <input type="text" id="set-weather-city" placeholder="Kochi, Kerala" />
+          </div>
+        </div>
+
+        <!-- Kiosk & Theme Settings -->
+        <div class="settings-card">
+          <h3>🌓 Theme &amp; Display</h3>
+          <div class="form-group">
+            <label for="set-theme-mode">Theme Mode</label>
+            <select id="set-theme-mode">
+              <option value="auto">🌙 Auto (Switch to Dark Theme after Sunset)</option>
+              <option value="dark">🌑 Always Dark Theme</option>
+              <option value="light">☀️ Always Light Theme</option>
+            </select>
+            <small style="color:var(--text-muted);display:block;margin-top:4px" id="settings-sunset-info">Auto switches after campus sunset (~06:18 PM).</small>
+          </div>
+          <div class="toggle-wrap" style="margin-top:12px">
+            <span>Auto-Rotate Views</span>
+            <label class="toggle" for="set-auto-rotate">
+              <input type="checkbox" id="set-auto-rotate" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label for="set-rotate-interval">Rotation Interval (seconds)</label>
+            <input type="number" id="set-rotate-interval" min="5" max="120" step="1" />
+          </div>
+        </div>
+
+        <!-- Admin Credentials -->
+        <div class="settings-card">
+          <h3>🔐 Admin Credentials</h3>
+          <div class="form-group">
+            <label for="set-admin-user">Username</label>
+            <input type="text" id="set-admin-user" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label for="set-admin-pass">New Password <small style="color:var(--text-muted)">(leave blank to keep)</small></label>
+            <input type="password" id="set-admin-pass" autocomplete="new-password" placeholder="New password…" />
+          </div>
+        </div>
+
+        <!-- Data Management -->
+        <div class="settings-card" style="grid-column:1/-1">
+          <h3>💾 Data Management</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+            <button class="btn-secondary" id="settings-export-btn">📤 Export Backup (JSON)</button>
+            <button class="btn-secondary" id="settings-import-btn">📥 Import JSON</button>
+            <input type="file" id="import-file-input" accept=".json" style="display:none" />
+            <button class="btn-danger" id="settings-reset-btn">⚠️ Reset to Defaults</button>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:12px">
+            All data is stored in browser localStorage. Use Export to create a backup file and Import to restore. The Pi kiosk can auto-load backup files on startup.
+          </p>
+        </div>
+
+      </div><!-- /.settings-grid -->
+
+      <div style="margin-top:20px">
+        <button class="btn-primary" id="settings-save-btn" style="width:220px">✅ Save All Settings</button>
+      </div>
+    </div><!-- /#apanel-settings -->
+
+  </div><!-- /#admin-body -->
+</div><!-- /#admin-dashboard -->
+
+<!-- ═══════════════════════════════════════════════════════
+     THE HINDU LIVE FLASH NEWS TICKER (Scrolling Bottom Banner)
+═══════════════════════════════════════════════════════ -->
+<div id="flash-news-ticker" role="region" aria-label="The Hindu Live Flash News">
+  <div class="fnt-badge">
+    <span class="fnt-pulse-dot" aria-hidden="true"></span>
+    <span class="fnt-logo">THE HINDU</span>
+    <span class="fnt-flash">FLASH NEWS</span>
+  </div>
+  <div class="fnt-marquee-container" id="fnt-marquee-container" title="Live headlines from The Hindu (Hover to pause)">
+    <div class="fnt-marquee-track" id="fnt-marquee-track">
+      <!-- Injected by app.js -->
+      <span class="fnt-loading-text">Loading live headlines from The Hindu…</span>
+    </div>
+  </div>
+  <div class="fnt-status">
+    <span class="fnt-live-badge">● LIVE FEED</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOAST CONTAINER
+═══════════════════════════════════════════════════════ -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS  (order matters)
+═══════════════════════════════════════════════════════ -->
+<script src="js/mock-data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+</html>
