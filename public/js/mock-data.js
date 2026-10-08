@@ -19,11 +19,6 @@ const DEFAULT_DATA = {
     newsRefreshInterval: 15     // minutes
   },
 
-  admin: {
-    username: "admin",
-    password: "admin123"          // plain – changeable in Settings
-  },
-
   notices: [
     {
       id: "not-1",

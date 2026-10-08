@@ -13,5 +13,8 @@
     "mechatronics"
   ],
   "author": "Naina, Jobis, Evan, Indrajith",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
 }

@@ -1,4 +1,44 @@
-.DS_Store
+# Dependencies and generated output
 node_modules/
 dist/
+.firebase/
+.DS_Store
 *.log
+
+# Local CORS notes/configuration
+cors.txt
+
+# Environment files (keep sanitized examples trackable)
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+!.env.template
+
+# Credentials and secrets
+secrets/
+.secrets/
+secrets.json
+secrets.yaml
+secrets.yml
+credentials.json
+credentials.yaml
+credentials.yml
+service-account*.json
+service_account*.json
+serviceAccount*.json
+*-firebase-adminsdk-*.json
+client_secret*.json
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
