@@ -15,10 +15,11 @@ function getApiBaseUrl() {
   if (window.location.port === '5000') {
     return window.location.origin;
   }
-  return '';
+  const ip = typeof PI_IP !== 'undefined' ? PI_IP : '10.178.192.24';
+  return `http://${ip}:5000`;
 }
 
-const PI_IP = '127.0.0.1';
+const PI_IP = '10.178.192.24';
 
 /* ── State ─────────────────────────────────────────────────────────────────── */
 const App = {
