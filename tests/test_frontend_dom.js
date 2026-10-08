@@ -175,7 +175,56 @@ async function runTests() {
   assert.strictEqual(remaining[0].subject, 'Control Systems');
   console.log('✓ Timetable deletion by stable ID preserves active editing and period integrity');
 
-  console.log('\nAll Task 1 & Task 3 DOM rendering, admin, and state tests PASSED successfully!');
+  // 10. Test Notice filters: active, deadline expiry, search, category
+  console.log('Test 10: Verifying notice active flag, deadline expiry, search and category filters...');
+  window.App.data.notices = [
+    { id: 'n1', title: 'Midterm Exam Schedule', category: 'Academic', priority: 'high', active: true, deadline: '2099-12-31' },
+    { id: 'n2', title: 'Robotics Workshop', category: 'Events', priority: 'normal', active: true, deadline: '2099-12-31' },
+    { id: 'n3', title: 'Hidden Inactive Notice', category: 'Academic', priority: 'normal', active: false, deadline: '2099-12-31' },
+    { id: 'n4', title: 'Past Expired Notice', category: 'Academic', priority: 'urgent', active: true, deadline: '2020-01-01' }
+  ];
+  window.renderNotices();
+  let cards = noticesGrid.querySelectorAll('.notice-card');
+  assert.strictEqual(cards.length, 2, 'Only active and non-expired notices should render');
+
+  // Search filter
+  const searchInput = document.getElementById('notice-search');
+  searchInput.value = 'Robotics';
+  searchInput.dispatchEvent(new window.Event('input'));
+  cards = noticesGrid.querySelectorAll('.notice-card');
+  assert.strictEqual(cards.length, 1, 'Search filter should isolate matching notices');
+  assert.ok(cards[0].textContent.includes('Robotics Workshop'));
+
+  // Clear search and test category filter
+  searchInput.value = '';
+  searchInput.dispatchEvent(new window.Event('input'));
+  const filterChips = document.getElementById('notice-filter-chips').querySelectorAll('.filter-chip');
+  const academicChip = Array.from(filterChips).find(c => c.textContent.includes('Academic'));
+  assert.ok(academicChip, 'Academic category chip should exist');
+  academicChip.click();
+  cards = noticesGrid.querySelectorAll('.notice-card');
+  assert.strictEqual(cards.length, 1);
+  assert.ok(cards[0].textContent.includes('Midterm Exam'));
+  console.log('✓ Notice filters (active, deadline expiry, search, and category chips) work harmoniously');
+
+  // 11. Test Pi Health Check UI
+  console.log('Test 11: Verifying Pi health check toggles status badge UI...');
+  const statusBadge = document.querySelector('.status-badge');
+  global.fetch = async () => ({
+    ok: true,
+    json: async () => ({ status: 'ok', timestamp: new Date().toISOString() })
+  });
+  await window.checkPiHealth();
+  assert.ok(statusBadge.classList.contains('online'), 'Badge should be online when health check succeeds');
+  assert.ok(statusBadge.textContent.includes('Pi Online'), 'Badge text should display Pi Online');
+
+  global.fetch = async () => { throw new Error('Offline'); };
+  await window.checkPiHealth();
+  assert.ok(statusBadge.classList.contains('offline'), 'Badge should be offline when health check fails');
+  assert.ok(statusBadge.textContent.includes('Standalone Mode'), 'Badge text should display Standalone Mode');
+  console.log('✓ Pi Health check accurately reflects online/standalone backend state');
+
+  console.log('\nAll Task 1, Task 3 & Task 4 tests PASSED successfully!');
   process.exit(0);
 }
 

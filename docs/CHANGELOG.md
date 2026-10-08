@@ -139,3 +139,95 @@ All notable changes and task progress for the IoT Smart Notice Board project are
 - **Unresolved Limitations**:
   - Task 4 board interaction, filters, search, timetable midnight rollover, and status badge health polling to be addressed next.
 
+---
+
+## [Task 4] — Notices, Navigation, Filters, Status, Weather, and Timetable
+- **Date**: 2026-10-08
+- **Issues Addressed**:
+  - Standardized on `deadline` for notice expiry while maintaining transparent backward compatibility for legacy `expiryDate` through an automatic migration step during `loadData()`.
+  - Enforced strict filtering of inactive notices (`active === false`) and expired notices (handling date-only deadlines through 23:59:59.999 end-of-day parsing).
+  - Preserved actual form value for notice active status rather than forcing new notices to `active: true`.
+  - Connected the `#notice-search` input directly to notice rendering, harmonizing search queries, active-state filtering, expiry filtering, and dynamic category chips.
+  - Dynamically populated category filter chips based on live active notice categories with accurate counts.
+  - Bound notice card click interactions directly to `#notice-modal` using event listeners and dataset attributes, eliminating inline javascript handlers.
+  - Synchronized navigation across both desktop (`.nav-btn`) and mobile (`.mobile-nav-btn`) buttons, safeguarding against navigation to nonexistent views.
+  - Replaced static "Pi Online" text with a live periodic health check against `/api/health` with a 4-second timeout, updating status badge styles between "Pi Online" (green) and "Standalone Mode" (amber, offline/cached).
+  - Clarified RSS feed status: differentiated live headlines from cached/archived headlines by updating the ticker badge to display "● LIVE FEED" or "○ ARCHIVE FEED" respectively.
+  - Maintained weather robustness: utilized actual `surface_pressure` from Open-Meteo with fallback, guarded missing provider fields and optional DOM elements, and sliced future hourly forecasts chronologically across midnight using UTC timestamps.
+  - Timetable date rollover: implemented dynamic day recomputation in `renderTimetable()`, detecting midnight rollover and preventing user day selection from becoming stale overnight while preserving manual browsing intent.
+  - Rendered timetable break periods with distinct icons (`🍱` / `☕`) rather than raw booleans.
+- **Files Changed**:
+  - `public/js/app.js`
+  - `tests/test_frontend_dom.js`
+  - `docs/CHANGELOG.md`
+- **Behavior / API Contract Changed**:
+  - `#notice-search` triggers real-time notice filtering.
+  - Status badge dynamically reflects backend connectivity (`/api/health`).
+  - Timetable recomputes to the current day across midnight rollover.
+  - Flash news badge accurately labels live vs archived feeds.
+- **Tests and Checks Run**:
+  - `node tests/test_frontend_dom.js`: 11/11 tests passed (DOM integrity, safe rendering, view switching, crash-free settings, saveData credential stripping, exportData sanitization, timetable stable ID editing, notice search/category/expiry filtering, and Pi health check UI).
+  - `python -m pytest tests/test_api.py -v`: 8/8 tests passed.
+- **Graphify Status**:
+  - Refreshed via `graphify update .` and verified updated frontend symbols.
+- **Unresolved Limitations**:
+  - Task 5 startup scripts, package.json, GitHub workflows, and git ignore hygiene to be addressed next.
+
+---
+
+## [Task 5] — Local Startup, Package Scripts, Deployment, and Ignored Files
+- **Date**: 2026-10-08
+- **Issues Addressed**:
+  - Fixed local startup scripts in `package.json`: updated `"dev"` and `"start"` from serving the root repository (`.`) to serving the verified frontend document root (`public/`).
+  - Added meaningful `"build"` script to `package.json` that validates the existence and distribution readiness of static assets in `public/index.html` for Firebase Hosting, resolving build failures in GitHub Actions workflows without fabricating a fake bundler.
+  - Added unified `"test"`, `"test:frontend"`, and `"test:backend"` npm scripts executing both the Node/JSDOM frontend test suite and the Python pytest backend test suite.
+  - Inspected and verified both existing GitHub Actions deployment workflows (`firebase-hosting-merge.yml` and `firebase-hosting-pull-request.yml`), confirming that the project ID (`iot-notice-board-naina`) and service account secret name (`FIREBASE_SERVICE_ACCOUNT_IOT_NOTICE_BOARD_NAINA`) are preserved accurately.
+  - Consolidated and expanded the root `.gitignore`: removed the misplaced `public/js/.gitignore` and established comprehensive ignore rules for environment files (`.env`, `.env.*`), local data/uploads directories, Python bytecode/environments, pytest caches, Firebase caches, and system files while keeping `.env.example` trackable.
+  - Created `.env.example` containing documented placeholders for backend host/port, credentials, token expiry, CORS origins, and storage paths without exposing any real secrets.
+  - Verified with `git ls-files` that no environment files, secrets, or sensitive credentials are inadvertently tracked in version control.
+- **Files Changed**:
+  - `package.json`
+  - `.gitignore`
+  - `.env.example`
+  - Removed misplaced `public/js/.gitignore`
+  - `docs/CHANGELOG.md`
+- **Behavior / API Contract Changed**:
+  - `npm run dev` and `npm start` now serve `public/` at port 5173.
+  - `npm run build` validates distribution assets.
+  - `npm test` runs all frontend and backend tests.
+- **Tests and Checks Run**:
+  - `npm run build`: verified static distribution check succeeded.
+  - `npm test`: verified all 11 frontend assertions and 8 backend pytest assertions passed (100% pass rate).
+  - `git ls-files`: verified clean tracked file status without secrets.
+- **Graphify Status**:
+  - Refreshed via `graphify update .` and verified updated package scripts and configuration.
+- **Unresolved Limitations**:
+  - Live deployment to Firebase Hosting and Raspberry Pi execution depend on user-provided repository secrets and physical Pi environment.
+
+---
+
+## [Task 6] — Handoff and Final Documentation
+- **Date**: 2026-10-08
+- **Issues Addressed**:
+  - Completely rewritten root `README.md` to accurately and comprehensively describe the IoT Smart Notice Board project, key capabilities, architecture, setup instructions, testing commands, configuration options, documentation index, and Graphify workflow.
+  - Authored `docs/ARCHITECTURE.md` documenting client and server component relationships, resilient DOM rendering rules, single-source state lifecycle, token security model, atomic persistence, and explicit RTK.md resolution.
+  - Authored `docs/DEPLOYMENT.md` providing end-to-end guidance for local development, automated Firebase Hosting CI/CD via GitHub Actions, Raspberry Pi systemd service setup, HTTPS mixed content handling, and disaster recovery.
+  - Verified and maintained `docs/API.md` describing all public read routes and protected write endpoints with schemas and status codes.
+  - Investigated and formally resolved references to `RTK.md`: verified 0 references exist in repository, confirming state architecture intentionally relies on lightweight vanilla stores rather than Redux Toolkit.
+  - Checked repository git status to ensure no real credentials, `.env` contents, or sensitive tokens are committed.
+- **Files Changed**:
+  - `README.md`
+  - `docs/ARCHITECTURE.md`
+  - `docs/DEPLOYMENT.md`
+  - `docs/API.md`
+  - `docs/CHANGELOG.md`
+- **Behavior / API Contract Changed**:
+  - Authoritative, synchronized documentation matching current codebase behavior and scripts.
+- **Tests and Checks Run**:
+  - `npm test`: all 11 frontend unit tests and 8 backend pytest tests executed and passed (100% pass rate).
+  - `npm run build`: verified static distribution check succeeded.
+- **Graphify Status**:
+  - Final graph refreshed via `graphify update .` (213 nodes, 369 edges, 15 communities) and queried across the codebase.
+- **Unresolved Limitations**:
+  - Production TLS certificates, Cloudflare Tunnel/reverse proxy, and live Firebase service account secrets remain outside the local repository and must be configured in their respective deployment environments.
+

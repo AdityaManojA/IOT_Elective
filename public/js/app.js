@@ -86,6 +86,14 @@ function loadData() {
       if (!App.data.timetable || !App.data.timetable.classes || Array.isArray(App.data.timetable.days?.['Monday'])) {
         App.data.timetable = def.timetable;
       }
+      // Migrate legacy notices with expiryDate to deadline
+      if (Array.isArray(App.data.notices)) {
+        App.data.notices.forEach(n => {
+          if (n && n.expiryDate && !n.deadline) {
+            n.deadline = n.expiryDate;
+          }
+        });
+      }
       return;
     } catch(e) {}
   }
@@ -231,6 +239,55 @@ function loadCollegeLogo() {
     };
   } else if (logoPlaceholder) {
     logoPlaceholder.style.display = 'inline-block';
+  }
+}
+
+/* ── Pi Backend Health Status ───────────────────────────────────────────────*/
+async function checkPiHealth() {
+  const badge = document.querySelector('.status-badge');
+  const dot = badge ? badge.querySelector('.status-dot') : null;
+  const label = badge ? badge.querySelector('span:not(.status-dot)') : null;
+  const apiBase = getApiBaseUrl();
+
+  const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const timeoutId = controller ? setTimeout(() => controller.abort(), 4000) : null;
+
+  try {
+    const res = await fetch(`${apiBase}/api/health`, {
+      method: 'GET',
+      signal: controller ? controller.signal : undefined
+    });
+    if (timeoutId) clearTimeout(timeoutId);
+    if (res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (badge) {
+        badge.classList.remove('offline');
+        badge.classList.add('online');
+        badge.title = `Connected to Pi backend (${data.timestamp || 'active'})`;
+      }
+      if (dot) dot.style.background = 'var(--accent-green)';
+      if (label) label.textContent = 'Pi Online';
+      return true;
+    } else {
+      throw new Error(`HTTP ${res.status}`);
+    }
+  } catch (err) {
+    if (timeoutId) clearTimeout(timeoutId);
+    if (badge) {
+      badge.classList.remove('online');
+      badge.classList.add('offline');
+      badge.title = 'Backend unreachable - running in standalone cached mode';
+    }
+    if (dot) dot.style.background = 'var(--accent-amber)';
+    if (label) label.textContent = 'Standalone Mode';
+    return false;
+  }
+}
+
+function schedulePiHealthCheck() {
+  checkPiHealth();
+  if (typeof setInterval !== 'undefined') {
+    setInterval(checkPiHealth, 30000);
   }
 }
 
@@ -459,6 +516,8 @@ async function fetchAchievementsFromBackend() {
 
 /* ── TIMETABLE (S7, S5, S3 MRE All on One Page) ─────────────────────────────*/
 let currentDay = '';
+let lastTrackedDate = '';
+let userSelectedDay = false;
 let activeClassFilter = 'all'; // 'all', 'S7 MRE', 'S5 MRE', 'S3 MRE'
 
 function renderTimetable() {
@@ -467,8 +526,18 @@ function renderTimetable() {
   }
   const days     = Object.keys(App.data.timetable.days);
   const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const todayDateString = new Date().toDateString();
   const today    = dayNames[new Date().getDay()];
-  if (!currentDay) currentDay = days.includes(today) ? today : days[0];
+
+  // If date rollover occurred overnight, clear manual user selection and recompute to today
+  if (lastTrackedDate !== todayDateString) {
+    lastTrackedDate = todayDateString;
+    userSelectedDay = false;
+  }
+
+  if (!userSelectedDay || !days.includes(currentDay)) {
+    currentDay = days.includes(today) ? today : days[0];
+  }
 
   // Day pills
   const pillsEl = document.getElementById('day-pills');
@@ -478,7 +547,11 @@ function renderTimetable() {
       const pill = document.createElement('button');
       pill.className = 'day-pill' + (d === currentDay ? ' active' : '') + (d === today ? ' today' : '');
       pill.innerHTML = `<span>${d}</span>${d === today ? '<span class="today-dot" title="Today">●</span>' : ''}`;
-      pill.onclick = () => { currentDay = d; renderTimetable(); };
+      pill.onclick = () => {
+        currentDay = d;
+        userSelectedDay = true;
+        renderTimetable();
+      };
       pillsEl.appendChild(pill);
     });
   }
@@ -964,6 +1037,11 @@ function renderFlashNewsTicker() {
   if (badge) {
     badge.textContent = isLive ? 'FLASH NEWS' : 'CAMPUS NEWS';
   }
+  const liveBadge = document.querySelector('.fnt-live-badge');
+  if (liveBadge) {
+    liveBadge.textContent = isLive ? '● LIVE FEED' : '○ ARCHIVE FEED';
+    liveBadge.style.color = isLive ? 'var(--accent-green)' : 'var(--text-muted)';
+  }
 
   const buildItemsHTML = (list) => list.map(item => {
     const safeLink = isValidHttpUrl(item.link) ? item.link : '';
@@ -1099,6 +1177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCollegeLogo();
   fetchNoticesFromBackend();
   fetchAchievementsFromBackend();
+  schedulePiHealthCheck();
 
   // Initial render & kiosk start
   switchView('notices');
@@ -1194,3 +1273,4 @@ window.switchView  = switchView;
 window.escapeHTML  = escapeHTML;
 window.formatDate  = formatDate;
 window.uid         = uid;
+window.checkPiHealth = checkPiHealth;

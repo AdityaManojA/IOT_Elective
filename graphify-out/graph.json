@@ -13,7 +13,19 @@
       "file_type": "code",
       "norm_label": "applytheme()",
       "source_file": "public/js/app.js",
-      "source_location": "L867"
+      "source_location": "L940"
+    },
+    {
+      "id": "public_js_app_checkpihealth",
+      "label": "checkPiHealth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "checkpihealth()",
+      "source_file": "public/js/app.js",
+      "source_location": "L246"
     },
     {
       "id": "public_js_app_checksunsettheme",
@@ -25,7 +37,7 @@
       "file_type": "code",
       "norm_label": "checksunsettheme()",
       "source_file": "public/js/app.js",
-      "source_location": "L833"
+      "source_location": "L906"
     },
     {
       "id": "public_js_app_escapehtml",
@@ -49,7 +61,7 @@
       "file_type": "code",
       "norm_label": "fetchachievementsfrombackend()",
       "source_file": "public/js/app.js",
-      "source_location": "L437"
+      "source_location": "L494"
     },
     {
       "id": "public_js_app_fetchnoticesfrombackend",
@@ -61,7 +73,7 @@
       "file_type": "code",
       "norm_label": "fetchnoticesfrombackend()",
       "source_file": "public/js/app.js",
-      "source_location": "L415"
+      "source_location": "L472"
     },
     {
       "id": "public_js_app_fetchthehinduheadlines",
@@ -73,7 +85,7 @@
       "file_type": "code",
       "norm_label": "fetchthehinduheadlines()",
       "source_file": "public/js/app.js",
-      "source_location": "L923"
+      "source_location": "L996"
     },
     {
       "id": "public_js_app_fetchweather",
@@ -85,7 +97,7 @@
       "file_type": "code",
       "norm_label": "fetchweather()",
       "source_file": "public/js/app.js",
-      "source_location": "L617"
+      "source_location": "L690"
     },
     {
       "id": "public_js_app_formatdate",
@@ -97,7 +109,7 @@
       "file_type": "code",
       "norm_label": "formatdate()",
       "source_file": "public/js/app.js",
-      "source_location": "L1000"
+      "source_location": "L1078"
     },
     {
       "id": "public_js_app_getapibaseurl",
@@ -121,7 +133,7 @@
       "file_type": "code",
       "norm_label": "getcampussuntimes()",
       "source_file": "public/js/app.js",
-      "source_location": "L824"
+      "source_location": "L897"
     },
     {
       "id": "public_js_app_getweathericon",
@@ -133,7 +145,7 @@
       "file_type": "code",
       "norm_label": "getweathericon()",
       "source_file": "public/js/app.js",
-      "source_location": "L615"
+      "source_location": "L688"
     },
     {
       "id": "public_js_app_iscurrentperiod",
@@ -145,7 +157,7 @@
       "file_type": "code",
       "norm_label": "iscurrentperiod()",
       "source_file": "public/js/app.js",
-      "source_location": "L598"
+      "source_location": "L671"
     },
     {
       "id": "public_js_app_isnoticeexpired",
@@ -181,7 +193,7 @@
       "file_type": "code",
       "norm_label": "loadcollegelogo()",
       "source_file": "public/js/app.js",
-      "source_location": "L208"
+      "source_location": "L216"
     },
     {
       "id": "public_js_app_loaddata",
@@ -205,7 +217,7 @@
       "file_type": "code",
       "norm_label": "nextview()",
       "source_file": "public/js/app.js",
-      "source_location": "L190"
+      "source_location": "L198"
     },
     {
       "id": "public_js_app_openachmodal",
@@ -217,7 +229,7 @@
       "file_type": "code",
       "norm_label": "openachmodal()",
       "source_file": "public/js/app.js",
-      "source_location": "L385"
+      "source_location": "L442"
     },
     {
       "id": "public_js_app_opennoticemodal",
@@ -229,7 +241,7 @@
       "file_type": "code",
       "norm_label": "opennoticemodal()",
       "source_file": "public/js/app.js",
-      "source_location": "L321"
+      "source_location": "L378"
     },
     {
       "id": "public_js_app_parseopenmeteo",
@@ -241,7 +253,7 @@
       "file_type": "code",
       "norm_label": "parseopenmeteo()",
       "source_file": "public/js/app.js",
-      "source_location": "L655"
+      "source_location": "L728"
     },
     {
       "id": "public_js_app_renderachievements",
@@ -253,7 +265,7 @@
       "file_type": "code",
       "norm_label": "renderachievements()",
       "source_file": "public/js/app.js",
-      "source_location": "L340"
+      "source_location": "L397"
     },
     {
       "id": "public_js_app_renderflashnewsticker",
@@ -265,7 +277,7 @@
       "file_type": "code",
       "norm_label": "renderflashnewsticker()",
       "source_file": "public/js/app.js",
-      "source_location": "L954"
+      "source_location": "L1027"
     },
     {
       "id": "public_js_app_rendernotices",
@@ -277,7 +289,7 @@
       "file_type": "code",
       "norm_label": "rendernotices()",
       "source_file": "public/js/app.js",
-      "source_location": "L238"
+      "source_location": "L295"
     },
     {
       "id": "public_js_app_rendertimetable",
@@ -289,7 +301,7 @@
       "file_type": "code",
       "norm_label": "rendertimetable()",
       "source_file": "public/js/app.js",
-      "source_location": "L464"
+      "source_location": "L523"
     },
     {
       "id": "public_js_app_rendertimetablecards",
@@ -301,7 +313,7 @@
       "file_type": "code",
       "norm_label": "rendertimetablecards()",
       "source_file": "public/js/app.js",
-      "source_location": "L506"
+      "source_location": "L579"
     },
     {
       "id": "public_js_app_renderweather",
@@ -313,7 +325,7 @@
       "file_type": "code",
       "norm_label": "renderweather()",
       "source_file": "public/js/app.js",
-      "source_location": "L736"
+      "source_location": "L809"
     },
     {
       "id": "public_js_app_resetkioskprogress",
@@ -325,7 +337,7 @@
       "file_type": "code",
       "norm_label": "resetkioskprogress()",
       "source_file": "public/js/app.js",
-      "source_location": "L185"
+      "source_location": "L193"
     },
     {
       "id": "public_js_app_savedata",
@@ -337,7 +349,7 @@
       "file_type": "code",
       "norm_label": "savedata()",
       "source_file": "public/js/app.js",
-      "source_location": "L96"
+      "source_location": "L104"
     },
     {
       "id": "public_js_app_schedulenewsrefresh",
@@ -349,7 +361,19 @@
       "file_type": "code",
       "norm_label": "schedulenewsrefresh()",
       "source_file": "public/js/app.js",
-      "source_location": "L994"
+      "source_location": "L1072"
+    },
+    {
+      "id": "public_js_app_schedulepihealthcheck",
+      "label": "schedulePiHealthCheck()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "schedulepihealthcheck()",
+      "source_file": "public/js/app.js",
+      "source_location": "L287"
     },
     {
       "id": "public_js_app_scheduleweatherrefresh",
@@ -361,7 +385,7 @@
       "file_type": "code",
       "norm_label": "scheduleweatherrefresh()",
       "source_file": "public/js/app.js",
-      "source_location": "L814"
+      "source_location": "L887"
     },
     {
       "id": "public_js_app_showtoast",
@@ -373,7 +397,7 @@
       "file_type": "code",
       "norm_label": "showtoast()",
       "source_file": "public/js/app.js",
-      "source_location": "L112"
+      "source_location": "L120"
     },
     {
       "id": "public_js_app_startkiosk",
@@ -385,7 +409,7 @@
       "file_type": "code",
       "norm_label": "startkiosk()",
       "source_file": "public/js/app.js",
-      "source_location": "L162"
+      "source_location": "L170"
     },
     {
       "id": "public_js_app_stopkiosk",
@@ -397,7 +421,7 @@
       "file_type": "code",
       "norm_label": "stopkiosk()",
       "source_file": "public/js/app.js",
-      "source_location": "L178"
+      "source_location": "L186"
     },
     {
       "id": "public_js_app_switchview",
@@ -409,7 +433,7 @@
       "file_type": "code",
       "norm_label": "switchview()",
       "source_file": "public/js/app.js",
-      "source_location": "L140"
+      "source_location": "L148"
     },
     {
       "id": "public_js_app_togglefullscreen",
@@ -421,7 +445,7 @@
       "file_type": "code",
       "norm_label": "togglefullscreen()",
       "source_file": "public/js/app.js",
-      "source_location": "L1007"
+      "source_location": "L1085"
     },
     {
       "id": "public_js_app_togglethemepreview",
@@ -433,7 +457,7 @@
       "file_type": "code",
       "norm_label": "togglethemepreview()",
       "source_file": "public/js/app.js",
-      "source_location": "L892"
+      "source_location": "L965"
     },
     {
       "id": "public_js_app_uid",
@@ -457,7 +481,7 @@
       "file_type": "code",
       "norm_label": "updateclock()",
       "source_file": "public/js/app.js",
-      "source_location": "L123"
+      "source_location": "L131"
     },
     {
       "id": "public_js_app_updatecollegelogodisplay",
@@ -469,7 +493,7 @@
       "file_type": "code",
       "norm_label": "updatecollegelogodisplay()",
       "source_file": "public/js/app.js",
-      "source_location": "L1125"
+      "source_location": "L1204"
     },
     {
       "id": "public_js_app_updateheaderweather",
@@ -481,7 +505,7 @@
       "file_type": "code",
       "norm_label": "updateheaderweather()",
       "source_file": "public/js/app.js",
-      "source_location": "L807"
+      "source_location": "L880"
     },
     {
       "id": "public_js_app_updateurgentbanner",
@@ -493,7 +517,7 @@
       "file_type": "code",
       "norm_label": "updateurgentbanner()",
       "source_file": "public/js/app.js",
-      "source_location": "L197"
+      "source_location": "L205"
     },
     {
       "id": "public_js_admin_addttperiod",
@@ -1426,7 +1450,7 @@
       "file_type": "code",
       "norm_label": "the_hindu_default_headlines",
       "source_file": "public/js/app.js",
-      "source_location": "L908"
+      "source_location": "L981"
     },
     {
       "id": "public_js_app_weather_icons",
@@ -1437,7 +1461,55 @@
       "file_type": "code",
       "norm_label": "weather_icons",
       "source_file": "public/js/app.js",
-      "source_location": "L607"
+      "source_location": "L680"
+    },
+    {
+      "id": "docs_architecture_2_1_file_organization_loading_sequence",
+      "label": "2.1 File Organization & Loading Sequence",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2.1 file organization & loading sequence",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L55"
+    },
+    {
+      "id": "docs_architecture_2_2_state_management_resilient_dom_rendering",
+      "label": "2.2 State Management & Resilient DOM Rendering",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2.2 state management & resilient dom rendering",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L62"
+    },
+    {
+      "id": "docs_architecture_2_3_resilient_standalone_offline_capability",
+      "label": "2.3 Resilient Standalone / Offline Capability",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2.3 resilient standalone / offline capability",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L74"
+    },
+    {
+      "id": "docs_architecture_2_frontend_architecture_public",
+      "label": "2. Frontend Architecture (`public/`)",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2. frontend architecture (`public/`)",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L53"
     },
     {
       "id": "docs_changelog_task_0_baseline_audit_and_plan",
@@ -1462,6 +1534,18 @@
       "norm_label": "[task 1] \u2014 frontend state and safe dom rendering",
       "source_file": "docs/CHANGELOG.md",
       "source_location": "L42"
+    },
+    {
+      "id": "docs_changelog_task_4_notices_navigation_filters_status_weather_and_timetable",
+      "label": "[Task 4] \u2014 Notices, Navigation, Filters, Status, Weather, and Timetable",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.js",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[task 4] \u2014 notices, navigation, filters, status, weather, and timetable",
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L144"
     },
     {
       "id": "public_js_admin",
@@ -1498,6 +1582,126 @@
       "source_location": "L111"
     },
     {
+      "id": "docs_api",
+      "label": "API.md",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "api.md",
+      "source_file": "docs/API.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_architecture",
+      "label": "ARCHITECTURE.md",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "architecture.md",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_architecture_1_overview",
+      "label": "1. Overview",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1. overview",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L3"
+    },
+    {
+      "id": "docs_architecture_3_1_framework_runtime",
+      "label": "3.1 Framework & Runtime",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.1 framework & runtime",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L85"
+    },
+    {
+      "id": "docs_architecture_3_2_security_authentication_session_model",
+      "label": "3.2 Security, Authentication & Session Model",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.2 security, authentication & session model",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L89"
+    },
+    {
+      "id": "docs_architecture_3_3_atomic_data_persistence",
+      "label": "3.3 Atomic Data Persistence",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.3 atomic data persistence",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L95"
+    },
+    {
+      "id": "docs_architecture_3_4_explicit_cors_configuration",
+      "label": "3.4 Explicit CORS Configuration",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.4 explicit cors configuration",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L103"
+    },
+    {
+      "id": "docs_architecture_3_backend_architecture_backend_app_py_app_py",
+      "label": "3. Backend Architecture (`backend/app.py`, `app.py`)",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3. backend architecture (`backend/app.py`, `app.py`)",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L83"
+    },
+    {
+      "id": "docs_architecture_4_documentation_references_rtk_md_resolution",
+      "label": "4. Documentation References & RTK.md Resolution",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "4. documentation references & rtk.md resolution",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L109"
+    },
+    {
+      "id": "docs_architecture_system_architecture_iot_smart_notice_board",
+      "label": "System Architecture \u2014 IoT Smart Notice Board",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "system architecture \u2014 iot smart notice board",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L1"
+    },
+    {
       "id": "docs_changelog",
       "label": "CHANGELOG.md",
       "_origin": "ast",
@@ -1522,16 +1726,172 @@
       "source_location": "L1"
     },
     {
-      "id": "docs_changelog_task_2_flask_api_authentication_cors_and_persistence",
-      "label": "[Task 2] \u2014 Flask API, Authentication, CORS, and Persistence",
+      "id": "docs_changelog_task_5_local_startup_package_scripts_deployment_and_ignored_files",
+      "label": "[Task 5] \u2014 Local Startup, Package Scripts, Deployment, and Ignored Files",
       "_origin": "ast",
       "community": 11,
       "community_name": "Changelog",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "[task 2] \u2014 flask api, authentication, cors, and persistence",
+      "norm_label": "[task 5] \u2014 local startup, package scripts, deployment, and ignored files",
       "source_file": "docs/CHANGELOG.md",
-      "source_location": "L72"
+      "source_location": "L178"
+    },
+    {
+      "id": "docs_changelog_task_6_handoff_and_final_documentation",
+      "label": "[Task 6] \u2014 Handoff and Final Documentation",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[task 6] \u2014 handoff and final documentation",
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L209"
+    },
+    {
+      "id": "readme",
+      "label": "README.md",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "readme.md",
+      "source_file": "README.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "readme_1_prerequisites",
+      "label": "1. Prerequisites",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1. prerequisites",
+      "source_file": "README.md",
+      "source_location": "L67"
+    },
+    {
+      "id": "readme_2_frontend_local_development",
+      "label": "2. Frontend Local Development",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2. frontend local development",
+      "source_file": "README.md",
+      "source_location": "L71"
+    },
+    {
+      "id": "readme_3_backend_local_development",
+      "label": "3. Backend Local Development",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3. backend local development",
+      "source_file": "README.md",
+      "source_location": "L78"
+    },
+    {
+      "id": "readme_configuration_environment_variables",
+      "label": "\u2699\ufe0f Configuration & Environment Variables",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\u2699\ufe0f configuration & environment variables",
+      "source_file": "README.md",
+      "source_location": "L110"
+    },
+    {
+      "id": "readme_documentation_index",
+      "label": "\ud83d\udcda Documentation Index",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\ud83d\udcda documentation index",
+      "source_file": "README.md",
+      "source_location": "L135"
+    },
+    {
+      "id": "readme_features",
+      "label": "\u2728 Features",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\u2728 features",
+      "source_file": "README.md",
+      "source_location": "L7"
+    },
+    {
+      "id": "readme_graphify_knowledge_graph",
+      "label": "\ud83d\udd0d Graphify Knowledge Graph",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\ud83d\udd0d graphify knowledge graph",
+      "source_file": "README.md",
+      "source_location": "L146"
+    },
+    {
+      "id": "readme_iot_smart_digital_notice_board",
+      "label": "\ud83d\udce2 IoT Smart Digital Notice Board",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\ud83d\udce2 iot smart digital notice board",
+      "source_file": "README.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "readme_quick_start",
+      "label": "\ud83d\ude80 Quick Start",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\ud83d\ude80 quick start",
+      "source_file": "README.md",
+      "source_location": "L65"
+    },
+    {
+      "id": "readme_system_architecture",
+      "label": "\ud83c\udfdb\ufe0f System Architecture",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\ud83c\udfdb\ufe0f system architecture",
+      "source_file": "README.md",
+      "source_location": "L43"
+    },
+    {
+      "id": "readme_testing",
+      "label": "\ud83e\uddea Testing",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "Changelog",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "\ud83e\uddea testing",
+      "source_file": "README.md",
+      "source_location": "L93"
     },
     {
       "id": "public_js_mock_data",
@@ -1554,54 +1914,6 @@
       "norm_label": "default_data",
       "source_file": "public/js/mock-data.js",
       "source_location": "L5"
-    },
-    {
-      "id": "readme",
-      "label": "README.md",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "README.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "readme.md",
-      "source_file": "README.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "readme_iot_basics",
-      "label": "IOT_Basics",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "README.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "iot_basics",
-      "source_file": "README.md",
-      "source_location": "L3"
-    },
-    {
-      "id": "readme_iot_elective",
-      "label": "IOT_Elective",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "README.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "iot_elective",
-      "source_file": "README.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "readme_names_of_girls_in_mre",
-      "label": "Names of girls in MRE",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "README.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "names of girls in mre",
-      "source_file": "README.md",
-      "source_location": "L7"
     },
     {
       "id": "agents_rules_graphify",
@@ -1715,6 +2027,18 @@
       "source_location": ""
     },
     {
+      "id": "docs_changelog_task_2_flask_api_authentication_cors_and_persistence",
+      "label": "[Task 2] \u2014 Flask API, Authentication, CORS, and Persistence",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "backend/app.py",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "[task 2] \u2014 flask api, authentication, cors, and persistence",
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L72"
+    },
+    {
       "id": "package",
       "label": "package.json",
       "_origin": "ast",
@@ -1734,7 +2058,7 @@
       "file_type": "code",
       "norm_label": "author",
       "source_file": "package.json",
-      "source_location": "L15"
+      "source_location": "L19"
     },
     {
       "id": "package_description",
@@ -1756,7 +2080,7 @@
       "file_type": "code",
       "norm_label": "devdependencies",
       "source_file": "package.json",
-      "source_location": "L17"
+      "source_location": "L21"
     },
     {
       "id": "package_devdependencies_jsdom",
@@ -1767,7 +2091,7 @@
       "file_type": "code",
       "norm_label": "jsdom",
       "source_file": "package.json",
-      "source_location": "L18"
+      "source_location": "L22"
     },
     {
       "id": "package_keywords",
@@ -1778,7 +2102,7 @@
       "file_type": "code",
       "norm_label": "keywords",
       "source_file": "package.json",
-      "source_location": "L10"
+      "source_location": "L14"
     },
     {
       "id": "package_license",
@@ -1789,7 +2113,7 @@
       "file_type": "code",
       "norm_label": "license",
       "source_file": "package.json",
-      "source_location": "L16"
+      "source_location": "L20"
     },
     {
       "id": "package_main",
@@ -1825,6 +2149,17 @@
       "source_location": "L6"
     },
     {
+      "id": "package_scripts_build",
+      "label": "build",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "build",
+      "source_file": "package.json",
+      "source_location": "L9"
+    },
+    {
       "id": "package_scripts_dev",
       "label": "dev",
       "_origin": "ast",
@@ -1845,6 +2180,39 @@
       "norm_label": "start",
       "source_file": "package.json",
       "source_location": "L8"
+    },
+    {
+      "id": "package_scripts_test",
+      "label": "test",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "test",
+      "source_file": "package.json",
+      "source_location": "L10"
+    },
+    {
+      "id": "package_scripts_test_backend",
+      "label": "test:backend",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "test:backend",
+      "source_file": "package.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "package_scripts_test_frontend",
+      "label": "test:frontend",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "test:frontend",
+      "source_file": "package.json",
+      "source_location": "L11"
     },
     {
       "id": "package_version",
@@ -1910,19 +2278,7 @@
       "file_type": "concept",
       "norm_label": "jsdom",
       "source_file": "package.json",
-      "source_location": "L18"
-    },
-    {
-      "id": "docs_api",
-      "label": "API.md",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Endpoints",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "api.md",
-      "source_file": "docs/API.md",
-      "source_location": "L1"
+      "source_location": "L22"
     },
     {
       "id": "docs_api_1_health_check",
@@ -2220,6 +2576,210 @@
       "file_type": "code",
       "norm_label": "test_api.py",
       "source_file": "tests/test_api.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_deployment",
+      "label": "DEPLOYMENT.md",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "deployment.md",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_deployment_1_1_prerequisites",
+      "label": "1.1 Prerequisites",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1.1 prerequisites",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L9"
+    },
+    {
+      "id": "docs_deployment_1_2_frontend_execution",
+      "label": "1.2 Frontend Execution",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1.2 frontend execution",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L13"
+    },
+    {
+      "id": "docs_deployment_1_3_backend_execution",
+      "label": "1.3 Backend Execution",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1.3 backend execution",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L21"
+    },
+    {
+      "id": "docs_deployment_1_4_running_test_suites",
+      "label": "1.4 Running Test Suites",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1.4 running test suites",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L37"
+    },
+    {
+      "id": "docs_deployment_1_local_development_setup",
+      "label": "1. Local Development Setup",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1. local development setup",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L7"
+    },
+    {
+      "id": "docs_deployment_2_1_configuration",
+      "label": "2.1 Configuration",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2.1 configuration",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L56"
+    },
+    {
+      "id": "docs_deployment_2_2_continuous_deployment_via_github_actions",
+      "label": "2.2 Continuous Deployment via GitHub Actions",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2.2 continuous deployment via github actions",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L61"
+    },
+    {
+      "id": "docs_deployment_2_3_manual_deployment_via_firebase_cli",
+      "label": "2.3 Manual Deployment via Firebase CLI",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2.3 manual deployment via firebase cli",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L69"
+    },
+    {
+      "id": "docs_deployment_2_firebase_hosting_deployment_client_application",
+      "label": "2. Firebase Hosting Deployment (Client Application)",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2. firebase hosting deployment (client application)",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L52"
+    },
+    {
+      "id": "docs_deployment_3_1_pi_hardware_os_setup",
+      "label": "3.1 Pi Hardware & OS Setup",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.1 pi hardware & os setup",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L83"
+    },
+    {
+      "id": "docs_deployment_3_2_installation_steps_on_raspberry_pi",
+      "label": "3.2 Installation Steps on Raspberry Pi",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.2 installation steps on raspberry pi",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L87"
+    },
+    {
+      "id": "docs_deployment_3_3_systemd_service_setup",
+      "label": "3.3 Systemd Service Setup",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.3 systemd service setup",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L107"
+    },
+    {
+      "id": "docs_deployment_3_4_https_network_connectivity_considerations",
+      "label": "3.4 HTTPS & Network Connectivity Considerations",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3.4 https & network connectivity considerations",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L134"
+    },
+    {
+      "id": "docs_deployment_3_raspberry_pi_edge_backend_deployment",
+      "label": "3. Raspberry Pi Edge Backend Deployment",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3. raspberry pi edge backend deployment",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L79"
+    },
+    {
+      "id": "docs_deployment_4_disaster_recovery_backups",
+      "label": "4. Disaster Recovery & Backups",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "4. disaster recovery & backups",
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L144"
+    },
+    {
+      "id": "docs_deployment_deployment_operations_guide_iot_smart_notice_board",
+      "label": "Deployment & Operations Guide \u2014 IoT Smart Notice Board",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "1. Local Development Setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "deployment & operations guide \u2014 iot smart notice board",
+      "source_file": "docs/DEPLOYMENT.md",
       "source_location": "L1"
     },
     {
@@ -3348,7 +3908,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L886",
+      "source_location": "L959",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app_checkpihealth",
+      "target": "public_js_app_getapibaseurl",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "public/js/app.js",
+      "source_location": "L250",
       "weight": 1.0
     },
     {
@@ -3360,7 +3932,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L838",
+      "source_location": "L911",
       "weight": 1.0
     },
     {
@@ -3372,7 +3944,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L856",
+      "source_location": "L929",
       "weight": 1.0
     },
     {
@@ -3384,7 +3956,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L438",
+      "source_location": "L495",
       "weight": 1.0
     },
     {
@@ -3396,7 +3968,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L440",
+      "source_location": "L497",
       "weight": 1.0
     },
     {
@@ -3408,7 +3980,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L449",
+      "source_location": "L506",
       "weight": 1.0
     },
     {
@@ -3420,7 +3992,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L416",
+      "source_location": "L473",
       "weight": 1.0
     },
     {
@@ -3432,7 +4004,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L418",
+      "source_location": "L475",
       "weight": 1.0
     },
     {
@@ -3444,7 +4016,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L427",
+      "source_location": "L484",
       "weight": 1.0
     },
     {
@@ -3456,7 +4028,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L941",
+      "source_location": "L1014",
       "weight": 1.0
     },
     {
@@ -3468,7 +4040,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L626",
+      "source_location": "L699",
       "weight": 1.0
     },
     {
@@ -3480,7 +4052,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L627",
+      "source_location": "L700",
       "weight": 1.0
     },
     {
@@ -3492,7 +4064,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L641",
+      "source_location": "L714",
       "weight": 1.0
     },
     {
@@ -3504,7 +4076,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L652",
+      "source_location": "L725",
       "weight": 1.0
     },
     {
@@ -3516,7 +4088,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L211",
+      "source_location": "L219",
       "weight": 1.0
     },
     {
@@ -3528,7 +4100,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L93",
+      "source_location": "L101",
       "weight": 1.0
     },
     {
@@ -3540,7 +4112,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L193",
+      "source_location": "L201",
       "weight": 1.0
     },
     {
@@ -3552,7 +4124,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L402",
+      "source_location": "L459",
       "weight": 1.0
     },
     {
@@ -3564,7 +4136,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L404",
+      "source_location": "L461",
       "weight": 1.0
     },
     {
@@ -3576,7 +4148,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L330",
+      "source_location": "L387",
       "weight": 1.0
     },
     {
@@ -3588,7 +4160,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L686",
+      "source_location": "L759",
       "weight": 1.0
     },
     {
@@ -3600,7 +4172,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L343",
+      "source_location": "L400",
       "weight": 1.0
     },
     {
@@ -3612,7 +4184,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L365",
+      "source_location": "L422",
       "weight": 1.0
     },
     {
@@ -3624,7 +4196,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L367",
+      "source_location": "L424",
       "weight": 1.0
     },
     {
@@ -3636,7 +4208,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L380",
+      "source_location": "L437",
       "weight": 1.0
     },
     {
@@ -3648,7 +4220,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L969",
+      "source_location": "L1047",
       "weight": 1.0
     },
     {
@@ -3660,7 +4232,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L971",
+      "source_location": "L1049",
       "weight": 1.0
     },
     {
@@ -3672,7 +4244,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L241",
+      "source_location": "L298",
       "weight": 1.0
     },
     {
@@ -3684,7 +4256,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L251",
+      "source_location": "L308",
       "weight": 1.0
     },
     {
@@ -3696,7 +4268,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L264",
+      "source_location": "L321",
       "weight": 1.0
     },
     {
@@ -3708,7 +4280,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L267",
+      "source_location": "L324",
       "weight": 1.0
     },
     {
@@ -3720,7 +4292,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L304",
+      "source_location": "L361",
       "weight": 1.0
     },
     {
@@ -3732,7 +4304,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L316",
+      "source_location": "L373",
       "weight": 1.0
     },
     {
@@ -3744,7 +4316,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L481",
+      "source_location": "L553",
       "weight": 1.0
     },
     {
@@ -3756,7 +4328,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L499",
+      "source_location": "L572",
       "weight": 1.0
     },
     {
@@ -3768,7 +4340,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L544",
+      "source_location": "L617",
       "weight": 1.0
     },
     {
@@ -3780,7 +4352,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L550",
+      "source_location": "L623",
       "weight": 1.0
     },
     {
@@ -3792,7 +4364,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L746",
+      "source_location": "L819",
       "weight": 1.0
     },
     {
@@ -3804,7 +4376,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L761",
+      "source_location": "L834",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app_schedulepihealthcheck",
+      "target": "public_js_app_checkpihealth",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "public/js/app.js",
+      "source_location": "L288",
       "weight": 1.0
     },
     {
@@ -3816,7 +4400,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L163",
+      "source_location": "L171",
       "weight": 1.0
     },
     {
@@ -3828,7 +4412,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L173",
+      "source_location": "L181",
       "weight": 1.0
     },
     {
@@ -3840,7 +4424,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L153",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -3852,7 +4436,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L154",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -3864,7 +4448,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L155",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
@@ -3876,7 +4460,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L156",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -3888,7 +4472,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L158",
+      "source_location": "L166",
       "weight": 1.0
     },
     {
@@ -3900,7 +4484,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L896",
+      "source_location": "L969",
       "weight": 1.0
     },
     {
@@ -3912,7 +4496,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L904",
+      "source_location": "L977",
       "weight": 1.0
     },
     {
@@ -3924,7 +4508,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L136",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -3936,7 +4520,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L1131",
+      "source_location": "L1210",
       "weight": 1.0
     },
     {
@@ -3948,7 +4532,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L809",
+      "source_location": "L882",
       "weight": 1.0
     },
     {
@@ -4097,6 +4681,42 @@
     },
     {
       "source": "public_js_app",
+      "target": "public_js_app_renderflashnewsticker",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "public/js/app.js",
+      "source_location": "L1027",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
+      "target": "public_js_app_savedata",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "public/js/app.js",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
+      "target": "public_js_app_schedulenewsrefresh",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "public/js/app.js",
+      "source_location": "L1072",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
       "target": "public_js_app_showtoast",
       "relation": "contains",
       "_origin": "ast",
@@ -4104,7 +4724,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L112",
+      "source_location": "L120",
       "weight": 1.0
     },
     {
@@ -4116,7 +4736,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L1125",
+      "source_location": "L1204",
       "weight": 1.0
     },
     {
@@ -4128,7 +4748,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L123",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
@@ -4140,7 +4760,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L140",
+      "source_location": "L148",
       "weight": 1.0
     },
     {
@@ -4152,7 +4772,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L162",
+      "source_location": "L170",
       "weight": 1.0
     },
     {
@@ -4164,7 +4784,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L197",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -4176,7 +4796,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L208",
+      "source_location": "L216",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
+      "target": "public_js_app_schedulepihealthcheck",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "public/js/app.js",
+      "source_location": "L287",
       "weight": 1.0
     },
     {
@@ -4188,7 +4820,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L238",
+      "source_location": "L295",
       "weight": 1.0
     },
     {
@@ -4200,7 +4832,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L415",
+      "source_location": "L472",
       "weight": 1.0
     },
     {
@@ -4212,7 +4844,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L437",
+      "source_location": "L494",
       "weight": 1.0
     },
     {
@@ -4224,7 +4856,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L617",
+      "source_location": "L690",
       "weight": 1.0
     },
     {
@@ -4248,7 +4880,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L814",
+      "source_location": "L887",
       "weight": 1.0
     },
     {
@@ -4260,7 +4892,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L833",
+      "source_location": "L906",
       "weight": 1.0
     },
     {
@@ -4272,43 +4904,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "public/js/app.js",
-      "source_location": "L923",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_renderflashnewsticker",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "public/js/app.js",
-      "source_location": "L954",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_savedata",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "public/js/app.js",
-      "source_location": "L96",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_schedulenewsrefresh",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "public/js/app.js",
-      "source_location": "L994",
+      "source_location": "L996",
       "weight": 1.0
     },
     {
@@ -4584,7 +5180,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -5218,6 +5814,138 @@
       "weight": 1.0
     },
     {
+      "source": "docs_architecture",
+      "target": "docs_architecture_system_architecture_iot_smart_notice_board",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_frontend_architecture_public",
+      "target": "docs_architecture_2_1_file_organization_loading_sequence",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_frontend_architecture_public",
+      "target": "docs_architecture_2_2_state_management_resilient_dom_rendering",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_frontend_architecture_public",
+      "target": "docs_architecture_2_3_resilient_standalone_offline_capability",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_3_backend_architecture_backend_app_py_app_py",
+      "target": "docs_architecture_3_4_explicit_cors_configuration",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_3_backend_architecture_backend_app_py_app_py",
+      "target": "docs_architecture_3_1_framework_runtime",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_3_backend_architecture_backend_app_py_app_py",
+      "target": "docs_architecture_3_2_security_authentication_session_model",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_3_backend_architecture_backend_app_py_app_py",
+      "target": "docs_architecture_3_3_atomic_data_persistence",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_system_architecture_iot_smart_notice_board",
+      "target": "docs_architecture_4_documentation_references_rtk_md_resolution",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_system_architecture_iot_smart_notice_board",
+      "target": "docs_architecture_1_overview",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_system_architecture_iot_smart_notice_board",
+      "target": "docs_architecture_2_frontend_architecture_public",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_system_architecture_iot_smart_notice_board",
+      "target": "docs_architecture_3_backend_architecture_backend_app_py_app_py",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
       "source": "docs_changelog",
       "target": "docs_changelog_changelog",
       "relation": "contains",
@@ -5237,6 +5965,39 @@
       "confidence_score": 1.0,
       "source_file": "docs/CHANGELOG.md",
       "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_changelog_changelog",
+      "target": "docs_changelog_task_4_notices_navigation_filters_status_weather_and_timetable",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_changelog_changelog",
+      "target": "docs_changelog_task_5_local_startup_package_scripts_deployment_and_ignored_files",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L178",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_changelog_changelog",
+      "target": "docs_changelog_task_6_handoff_and_final_documentation",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L209",
       "weight": 1.0
     },
     {
@@ -5273,6 +6034,182 @@
       "weight": 1.0
     },
     {
+      "source": "docs_deployment",
+      "target": "docs_deployment_deployment_operations_guide_iot_smart_notice_board",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_1_local_development_setup",
+      "target": "docs_deployment_1_2_frontend_execution",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_1_local_development_setup",
+      "target": "docs_deployment_1_3_backend_execution",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_1_local_development_setup",
+      "target": "docs_deployment_1_4_running_test_suites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_1_local_development_setup",
+      "target": "docs_deployment_1_1_prerequisites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_2_firebase_hosting_deployment_client_application",
+      "target": "docs_deployment_2_1_configuration",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_2_firebase_hosting_deployment_client_application",
+      "target": "docs_deployment_2_2_continuous_deployment_via_github_actions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_2_firebase_hosting_deployment_client_application",
+      "target": "docs_deployment_2_3_manual_deployment_via_firebase_cli",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_3_raspberry_pi_edge_backend_deployment",
+      "target": "docs_deployment_3_3_systemd_service_setup",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_3_raspberry_pi_edge_backend_deployment",
+      "target": "docs_deployment_3_4_https_network_connectivity_considerations",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_3_raspberry_pi_edge_backend_deployment",
+      "target": "docs_deployment_3_1_pi_hardware_os_setup",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_3_raspberry_pi_edge_backend_deployment",
+      "target": "docs_deployment_3_2_installation_steps_on_raspberry_pi",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_deployment_operations_guide_iot_smart_notice_board",
+      "target": "docs_deployment_4_disaster_recovery_backups",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_deployment_operations_guide_iot_smart_notice_board",
+      "target": "docs_deployment_2_firebase_hosting_deployment_client_application",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_deployment_operations_guide_iot_smart_notice_board",
+      "target": "docs_deployment_1_local_development_setup",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_deployment_deployment_operations_guide_iot_smart_notice_board",
+      "target": "docs_deployment_3_raspberry_pi_edge_backend_deployment",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DEPLOYMENT.md",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
       "source": "package",
       "target": "package_keywords",
       "relation": "contains",
@@ -5280,7 +6217,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L10",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -5291,29 +6228,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L15",
-      "weight": 1.0
-    },
-    {
-      "source": "package",
-      "target": "package_license",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "package.json",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "package",
-      "target": "package_devdependencies",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -5325,6 +6240,28 @@
       "confidence_score": 1.0,
       "source_file": "package.json",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "package",
+      "target": "package_license",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "package",
+      "target": "package_devdependencies",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -5379,7 +6316,40 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "package_scripts",
+      "target": "package_scripts_test",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "package_scripts",
+      "target": "package_scripts_test_frontend",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "package_scripts",
+      "target": "package_scripts_test_backend",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -5402,6 +6372,17 @@
       "confidence_score": 1.0,
       "source_file": "package.json",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "package_scripts",
+      "target": "package_scripts_build",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "package.json",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -5676,7 +6657,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L1000",
+      "source_location": "L1078",
       "weight": 1.0
     },
     {
@@ -5687,7 +6668,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L178",
+      "source_location": "L186",
       "weight": 1.0
     },
     {
@@ -5698,7 +6679,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L185",
+      "source_location": "L193",
       "weight": 1.0
     },
     {
@@ -5709,7 +6690,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L190",
+      "source_location": "L198",
       "weight": 1.0
     },
     {
@@ -5725,24 +6706,24 @@
     },
     {
       "source": "public_js_app",
+      "target": "public_js_app_checkpihealth",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/js/app.js",
+      "source_location": "L246",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
       "target": "public_js_app_opennoticemodal",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L321",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_renderachievements",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "public/js/app.js",
-      "source_location": "L340",
+      "source_location": "L378",
       "weight": 1.0
     },
     {
@@ -5758,24 +6739,24 @@
     },
     {
       "source": "public_js_app",
+      "target": "public_js_app_renderachievements",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/js/app.js",
+      "source_location": "L397",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
       "target": "public_js_app_openachmodal",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L385",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_rendertimetable",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "public/js/app.js",
-      "source_location": "L464",
+      "source_location": "L442",
       "weight": 1.0
     },
     {
@@ -5791,24 +6772,24 @@
     },
     {
       "source": "public_js_app",
+      "target": "public_js_app_rendertimetable",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/js/app.js",
+      "source_location": "L523",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
       "target": "public_js_app_rendertimetablecards",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L506",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_iscurrentperiod",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "public/js/app.js",
-      "source_location": "L598",
+      "source_location": "L579",
       "weight": 1.0
     },
     {
@@ -5835,13 +6816,24 @@
     },
     {
       "source": "public_js_app",
+      "target": "public_js_app_iscurrentperiod",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/js/app.js",
+      "source_location": "L671",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
       "target": "public_js_app_weather_icons",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L607",
+      "source_location": "L680",
       "weight": 1.0
     },
     {
@@ -5852,7 +6844,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L615",
+      "source_location": "L688",
       "weight": 1.0
     },
     {
@@ -5863,18 +6855,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L655",
-      "weight": 1.0
-    },
-    {
-      "source": "public_js_app",
-      "target": "public_js_app_renderweather",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "public/js/app.js",
-      "source_location": "L736",
+      "source_location": "L728",
       "weight": 1.0
     },
     {
@@ -5890,13 +6871,24 @@
     },
     {
       "source": "public_js_app",
+      "target": "public_js_app_renderweather",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "public/js/app.js",
+      "source_location": "L809",
+      "weight": 1.0
+    },
+    {
+      "source": "public_js_app",
       "target": "public_js_app_updateheaderweather",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L807",
+      "source_location": "L880",
       "weight": 1.0
     },
     {
@@ -5907,7 +6899,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L824",
+      "source_location": "L897",
       "weight": 1.0
     },
     {
@@ -5918,7 +6910,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L867",
+      "source_location": "L940",
       "weight": 1.0
     },
     {
@@ -5929,7 +6921,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "public/js/app.js",
-      "source_location": "L908",
+      "source_location": "L981",
       "weight": 1.0
     },
     {
@@ -5945,7 +6937,7 @@
     },
     {
       "source": "readme",
-      "target": "readme_iot_elective",
+      "target": "readme_iot_smart_digital_notice_board",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5955,25 +6947,113 @@
       "weight": 1.0
     },
     {
-      "source": "readme",
-      "target": "readme_iot_basics",
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_configuration_environment_variables",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L3",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
-      "source": "readme_iot_basics",
-      "target": "readme_names_of_girls_in_mre",
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_documentation_index",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_graphify_knowledge_graph",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_system_architecture",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_quick_start",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_features",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_iot_smart_digital_notice_board",
+      "target": "readme_testing",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_quick_start",
+      "target": "readme_1_prerequisites",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_quick_start",
+      "target": "readme_2_frontend_local_development",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_quick_start",
+      "target": "readme_3_backend_local_development",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -6117,6 +7197,50 @@
       "confidence_score": 1.0,
       "source_file": "tests/test_frontend_dom.js",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "readme",
+      "target": "docs_api",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "readme",
+      "target": "docs_deployment",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "readme",
+      "target": "docs_changelog",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "readme",
+      "target": "docs_architecture",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -6296,7 +7420,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "public/js/app.js",
-      "source_location": "L1050",
+      "source_location": "L1128",
       "weight": 1.0
     },
     {
@@ -6308,7 +7432,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "public/js/app.js",
-      "source_location": "L1095",
+      "source_location": "L1173",
       "weight": 1.0
     },
     {
@@ -6320,7 +7444,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "public/js/app.js",
-      "source_location": "L996",
+      "source_location": "L1074",
       "weight": 1.0
     },
     {
@@ -6332,7 +7456,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "public/js/app.js",
-      "source_location": "L817",
+      "source_location": "L890",
       "weight": 1.0
     },
     {
@@ -6345,6 +7469,18 @@
       "context": "return",
       "source_file": "backend/app.py",
       "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_3_resilient_standalone_offline_capability",
+      "target": "public_js_app_checkpihealth",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "checkPiHealth()",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -6369,6 +7505,18 @@
       "context": "escapeHTML",
       "source_file": "docs/CHANGELOG.md",
       "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_2_state_management_resilient_dom_rendering",
+      "target": "public_js_app_escapehtml",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "escapeHTML()",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -6432,6 +7580,30 @@
       "weight": 1.0
     },
     {
+      "source": "docs_architecture_2_2_state_management_resilient_dom_rendering",
+      "target": "public_js_app_isvalidhttpurl",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "isValidHttpUrl()",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_changelog_task_4_notices_navigation_filters_status_weather_and_timetable",
+      "target": "public_js_app_loaddata",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "loadData()",
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
       "source": "docs_changelog_task_3_admin_saves_settings_imports_exports_and_logo_flow",
       "target": "public_js_admin_loadsettings",
       "relation": "references",
@@ -6453,6 +7625,30 @@
       "context": "load_json",
       "source_file": "docs/CHANGELOG.md",
       "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_1_file_organization_loading_sequence",
+      "target": "public_js_app_renderachievements",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderAchievements",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_2_state_management_resilient_dom_rendering",
+      "target": "public_js_app_renderachievements",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderAchievements()",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -6480,6 +7676,30 @@
       "weight": 1.0
     },
     {
+      "source": "docs_architecture_2_1_file_organization_loading_sequence",
+      "target": "public_js_app_rendernotices",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderNotices",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_2_state_management_resilient_dom_rendering",
+      "target": "public_js_app_rendernotices",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderNotices()",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
       "source": "docs_changelog_task_0_baseline_audit_and_plan",
       "target": "public_js_app_rendernotices",
       "relation": "references",
@@ -6504,6 +7724,18 @@
       "weight": 1.0
     },
     {
+      "source": "docs_architecture_2_1_file_organization_loading_sequence",
+      "target": "public_js_app_rendertimetable",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderTimetable",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
       "source": "docs_changelog_task_1_frontend_state_and_safe_dom_rendering",
       "target": "public_js_app_rendertimetable",
       "relation": "references",
@@ -6513,6 +7745,30 @@
       "context": "renderTimetable",
       "source_file": "docs/CHANGELOG.md",
       "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_changelog_task_4_notices_navigation_filters_status_weather_and_timetable",
+      "target": "public_js_app_rendertimetable",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderTimetable()",
+      "source_file": "docs/CHANGELOG.md",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_architecture_2_1_file_organization_loading_sequence",
+      "target": "public_js_app_renderweather",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "renderWeather",
+      "source_file": "docs/ARCHITECTURE.md",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -6577,5 +7833,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "497e8b5bb16e75a0617c10880f4d47c45cbca30a"
+  "built_at_commit": "8438b5515853a658c6ea1c18b98e9a80f5b6bc11"
 }
