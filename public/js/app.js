@@ -3,6 +3,8 @@
 //  Real-time clock, kiosk auto-rotator, weather fetcher, view switching
 // =============================================================================
 
+const PI_IP = '10.178.192.24';
+
 /* ── State ─────────────────────────────────────────────────────────────────── */
 const App = {
   currentView: 'notices',
@@ -14,6 +16,13 @@ const App = {
   weatherRefreshTimer: null,
   data: null,
 };
+
+
+function isNoticeExpired(notice) {
+  if (!notice || !notice.expiryDate) return false;
+  const expiry = new Date(notice.expiryDate);
+  return expiry < new Date();
+}
 
 /* ── Helpers ─────────────────────────────────────────────────────────────────*/
 function uid() { return 'id-' + Math.random().toString(36).substr(2,9) + '-' + Date.now(); }
@@ -44,7 +53,7 @@ function saveData() {
 
 /* ── Toast notifications ──────────────────────────────────────────────────── */
 function showToast(msg, type = 'success', duration = 3000) {
-  const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+  const icon = type === 'success' ? '✓' : '✗';
   const t = document.createElement('div');
   t.className = `toast ${type}`;
   t.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
@@ -132,139 +141,97 @@ function updateUrgentBanner() {
   }
 }
 
-/* ── NOTICES ─────────────────────────────────────────────────────────────────*/
-let noticeFilter    = 'All';
-let noticeSearchStr = '';
 
-function isNoticeExpired(notice) {
-  const deadlineStr = notice.deadline || notice.date;
-  if (!deadlineStr) return false;
-  const deadline = new Date(deadlineStr);
-  if (isNaN(deadline.getTime())) return false;
-  // If date string YYYY-MM-DD without time, expire at end of that day (23:59:59)
-  if (deadlineStr.length <= 10) {
-    deadline.setHours(23, 59, 59, 999);
+/*-----Logo----*/
+
+function loadCollegeLogo() {
+  const logoImg = document.getElementById('college-logo-img');
+  const logoPlaceholder = document.getElementById('logo-placeholder');
+  
+  if (logoImg) {
+    // Add a cache buster timestamp so updated logos refresh instantly
+    logoImg.src = `http://${PI_IP}:5000/api/logo?t=${new Date().getTime()}`;
+    logoImg.onload = () => {
+      logoImg.style.display = 'block';
+      if (logoPlaceholder) logoPlaceholder.style.display = 'none';
+    };
+    logoImg.onerror = () => {
+      logoImg.style.display = 'none';
+      if (logoPlaceholder) logoPlaceholder.style.display = 'inline-block';
+    };
   }
-  return new Date() > deadline;
 }
 
-function renderNotices() {
-  // Filter out inactive notices AND notices whose deadline has passed
-  const activeNotices = (App.data.notices || []).filter(n => n.active && !isNoticeExpired(n));
+// Call on startup
+document.addEventListener('DOMContentLoaded', () => {
+  loadCollegeLogo();
+  fetchNoticesFromBackend();
+  fetchAchievementsFromBackend();
+});
 
-  // Requirement: Remove tab groups (Academics, Placement, Events, General) and just keep only "All"
-  const filterBar = document.getElementById('notice-filter-chips');
-  if (filterBar) {
-    filterBar.innerHTML = '';
-    const chip = document.createElement('button');
-    chip.className = 'filter-chip active';
-    chip.id = 'chip-all';
-    chip.innerHTML = `<span>📋 All Notices</span> <span class="chip-count">${activeNotices.length}</span>`;
-    chip.onclick = () => { noticeFilter = 'All'; renderNotices(); };
-    filterBar.appendChild(chip);
-  }
 
-  // Filter notices by search if present
-  let filtered = activeNotices;
-  if (noticeSearchStr) {
-    const s = noticeSearchStr.toLowerCase();
-    filtered = filtered.filter(n =>
-      n.title.toLowerCase().includes(s) || n.content.toLowerCase().includes(s) || (n.author && n.author.toLowerCase().includes(s))
-    );
-  }
 
-  // Sort by priority (urgent -> high -> normal)
-  const pOrder = { urgent:0, high:1, normal:2 };
-  filtered.sort((a,b) => (pOrder[a.priority]??9) - (pOrder[b.priority]??9));
+// Render Notices into the UI
+function renderNotices(notices) {
+  const container = document.getElementById('notices-container') || document.getElementById('main-content');
+  if (!container) return;
 
-  const grid = document.getElementById('notices-grid');
-  grid.innerHTML = '';
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="es-icon">📋</div><h3>No active notices found</h3>
-      <p>All notices may be past their deadline or no notices match your search.</p></div>`;
+  if (!notices || notices.length === 0) {
+    container.innerHTML = '<p class="empty-msg">No notices posted yet.</p>';
     return;
   }
 
-  const categoryIcons = {
-    Academic: '📚', Events: '🎉', Placement: '💼', General: '📢', Urgent: '🚨', Circular: '📜'
-  };
-
-  filtered.forEach(notice => {
-    const card = document.createElement('div');
-    card.className = `notice-card priority-${notice.priority}`;
-    const deadlineText = notice.deadline ? formatDate(notice.deadline) : formatDate(notice.date);
-    card.innerHTML = `
-      <div class="notice-meta">
-        <span class="notice-category">${categoryIcons[notice.category] || '📌'} ${notice.category}</span>
-        <span class="notice-priority-badge">${notice.priority.toUpperCase()}</span>
-      </div>
-      <div class="notice-title">${notice.title}</div>
-      <div class="notice-content">${notice.content}</div>
-      <div class="notice-footer">
-        <span>👤 ${notice.author}</span>
-        <span title="Valid until deadline" class="notice-deadline-tag">⏳ Deadline: ${deadlineText}</span>
-      </div>`;
-    card.onclick = () => openNoticeModal(notice);
-    grid.appendChild(card);
-  });
+  container.innerHTML = notices.map(notice => `
+    <div class="notice-card" style="border-left: 4px solid var(--accent-primary, #7b9dd4); margin-bottom: 12px; padding: 12px; background: var(--bg-card, #fff); border-radius: 8px;">
+      <h3 style="margin: 0 0 6px 0;">${notice.title || 'Untitled Notice'}</h3>
+      <p style="margin: 0 0 8px 0;">${notice.content || notice.body || ''}</p>
+      <small style="color: #666;">${notice.date || new Date().toLocaleDateString()}</small>
+    </div>
+  `).join('');
 }
 
-function openNoticeModal(notice) {
-  document.getElementById('notice-modal-title').textContent = notice.title;
-  document.getElementById('notice-modal-body').textContent  = notice.content;
-  document.getElementById('notice-modal-author').textContent = `👤 ${notice.author}`;
-  const deadlineText = notice.deadline ? formatDate(notice.deadline) : formatDate(notice.date);
-  document.getElementById('notice-modal-date').textContent   = `⏳ Deadline: ${deadlineText}`;
-  document.getElementById('notice-modal-cat').textContent    = `🏷 ${notice.category}`;
-  document.getElementById('notice-modal').classList.add('open');
-}
+// Render Achievements into the UI
+function renderAchievements(achievements) {
+  const container = document.getElementById('achievements-container') || document.getElementById('stars-view');
+  if (!container) return;
 
-/* ── ACHIEVEMENTS ─────────────────────────────────────────────────────────── */
-function renderAchievements() {
-  const achs  = App.data.achievements || [];
-  const grid  = document.getElementById('achievements-grid');
-  grid.innerHTML = '';
-  if (achs.length === 0) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="es-icon">🏆</div><h3>No achievements yet</h3>
-      <p>Add student achievements from the Admin panel.</p></div>`;
+  if (!achievements || achievements.length === 0) {
+    container.innerHTML = '<p class="empty-msg">No achievements recorded.</p>';
     return;
   }
-  achs.forEach(ach => {
-    const card = document.createElement('div');
-    card.className = 'ach-card' + (ach.featured ? ' featured' : '');
-    const iconMap = { 'IoT & Robotics':'🤖', Research:'📄', Cybersecurity:'🛡️', Robotics:'⚙️' };
-    const imgHTML = ach.image
-      ? `<div class="ach-image-wrap"><img src="${ach.image}" alt="${ach.studentName}" loading="lazy"><div class="ach-image-overlay"></div></div>`
-      : `<div class="ach-img-placeholder">${iconMap[ach.category] || '🏆'}</div>`;
-    card.innerHTML = `
-      ${imgHTML}
-      <span class="ach-featured-badge">⭐ Featured</span>
-      <div class="ach-body">
-        <div class="ach-category">${ach.category}</div>
-        <div class="ach-title">${ach.title}</div>
-        <div class="ach-student">🎓 ${ach.studentName}</div>
-        <div class="ach-competition">🏆 ${ach.competition}</div>
-        <div class="ach-award">🥇 ${ach.award}</div>
-      </div>`;
-    card.onclick = () => openAchModal(ach);
-    grid.appendChild(card);
-  });
+
+  container.innerHTML = achievements.map(item => `
+    <div class="achievement-card" style="margin-bottom: 12px; padding: 12px; background: var(--bg-card, #fff); border-radius: 8px;">
+      <h4 style="margin: 0 0 4px 0;">🏆 ${item.title || item.studentName || 'Achievement'}</h4>
+      <p style="margin: 0;">${item.description || item.details || ''}</p>
+    </div>
+  `).join('');
+}
+/* ── NOTICES & ACHIEVEMENTS ─────────────────────────────────────────────────────────────────*/
+async function fetchNoticesFromBackend() {
+  try {
+    const res = await fetch(`http://${PI_IP}:5000/api/notices`);
+    if (res.ok) {
+      const notices = await res.json();
+      renderNotices(notices);
+    }
+  } catch (e) {
+    console.error('Failed to load notices:', e);
+  }
 }
 
-function openAchModal(ach) {
-  document.getElementById('ach-modal-title').textContent   = ach.title;
-  document.getElementById('ach-modal-student').textContent = ach.studentName + ' (' + ach.rollNo + ')';
-  document.getElementById('ach-modal-comp').textContent    = ach.competition;
-  document.getElementById('ach-modal-award').textContent   = ach.award;
-  document.getElementById('ach-modal-desc').textContent    = ach.description;
-  document.getElementById('ach-modal-date').textContent    = formatDate(ach.date);
-  const imgEl = document.getElementById('ach-modal-img');
-  if (ach.image) { imgEl.src = ach.image; imgEl.style.display = 'block'; }
-  else           { imgEl.style.display = 'none'; }
-  document.getElementById('ach-modal').classList.add('open');
+async function fetchAchievementsFromBackend() {
+  try {
+    const res = await fetch(`http://${PI_IP}:5000/api/achievements`);
+    if (res.ok) {
+      const achievements = await res.json();
+      renderAchievements(achievements);
+    }
+  } catch (e) {
+    console.error('Failed to load achievements:', e);
+  }
 }
+
 
 /* ── TIMETABLE (S7, S5, S3 MRE All on One Page) ─────────────────────────────*/
 let currentDay = '';
@@ -356,7 +323,7 @@ function renderTimetableCards() {
           rowsHTML += `
             <tr class="tt-row break-row">
               <td colspan="5" class="tt-break-cell">
-                <span class="tt-break-pill">${isLunch ? '🍱' : '☕'} ${p.subject} &nbsp;·&nbsp; ${p.time}</span>
+                <span class="tt-break-pill">${isLunch} ${p.subject} &nbsp;·&nbsp; ${p.time}</span>
               </td>
             </tr>`;
         } else {
@@ -533,11 +500,14 @@ function parseOpenMeteo(raw, city) {
   };
 }
 
+
+
 function renderWeather() {
   const w = App.data._weather || App.data.weatherFallback;
   const cfg = App.data.config;
 
-  document.getElementById('w-icon').textContent     = getWeatherIcon(w.icon);
+  const wIcon = document.getElementById('w-icon');
+  if (wIcon) wIcon.textContent = getWeatherIcon(w.icon);
   document.getElementById('w-temp').innerHTML       = `${w.temperature}<span class="weather-unit">°C</span>`;
   document.getElementById('w-condition').textContent = w.condition;
   document.getElementById('w-feels').textContent    = `Feels like ${w.feelsLike}°C`;

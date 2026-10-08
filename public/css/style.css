@@ -1685,3 +1685,22 @@ body.dark-theme #flash-news-ticker { box-shadow: 0 -4px 28px rgba(192,57,43,0.45
 }
 .board-footer .footer-dot { color: var(--accent-primary); }
 
+/* Custom Styles or Overrides */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}

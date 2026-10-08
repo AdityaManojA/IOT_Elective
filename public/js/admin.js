@@ -4,26 +4,50 @@
 // =============================================================================
 
 /* ── Auth ─────────────────────────────────────────────────────────────────── */
+
+// js/admin.js
+
 let isLoggedIn = false;
 
-function doLogin() {
+async function doLogin() {
   const user = document.getElementById('login-username').value.trim();
   const pass = document.getElementById('login-password').value.trim();
-  const cfg = window.App.data.admin;
-  if (user === cfg.username && pass === cfg.password) {
-    isLoggedIn = true;
-    document.getElementById('admin-login-screen').classList.remove('open');
-    openAdminDashboard();
-  } else {
-    const err = document.getElementById('login-error');
-    err.textContent = '❌ Invalid credentials. Please try again.';
-    err.classList.add('visible');
-    const passInput = document.getElementById('login-password');
+  const err = document.getElementById('login-error');
+
+  try {
+    const response = await fetch(`http://${PI_IP}:5000/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: user, password: pass })
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      isLoggedIn = true;
+      document.getElementById('admin-login-screen').classList.remove('open');
+      openAdminDashboard();
+      if (err) err.classList.remove('visible');
+    } else {
+      showError(err, 'X Invalid credentials. Please try again.');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    showError(err, 'X Server connection failed.');
+  }
+}
+
+function showError(errElement, message) {
+  if (errElement) {
+    errElement.textContent = message;
+    errElement.classList.add('visible');
+  }
+  const passInput = document.getElementById('login-password');
+  if (passInput) {
     passInput.value = '';
     passInput.focus();
   }
 }
-
 function openAdminDashboard() {
   const dash = document.getElementById('admin-dashboard');
   dash.classList.add('open');
@@ -72,10 +96,10 @@ function renderAdminNotices() {
         <div class="ali-title">${n.title}</div>
         <div class="ali-meta" style="display:flex;gap:10px;margin-top:3px;flex-wrap:wrap">
           <span style="color:${pColors[n.priority] || 'gray'};font-weight:600;font-size:11px">${n.priority.toUpperCase()}</span>
-          <span>📂 ${n.category}</span>
-          <span>📅 Posted: ${window.formatDate(n.date)}</span>
+          <span> ${n.category}</span>
+          <span> Posted: ${window.formatDate(n.date)}</span>
           <span style="color:${isExpired ? 'var(--accent-rose)' : 'var(--text-secondary)'};font-weight:${isExpired ? '600' : 'normal'}">
-            ⏳ Deadline: ${deadlineStr} ${isExpired ? '(EXPIRED - Removed from board)' : ''}
+             Deadline: ${deadlineStr} ${isExpired ? '(EXPIRED - Removed from board)' : ''}
           </span>
           <span style="color:${n.active && !isExpired ? 'var(--accent-green)' : 'var(--text-muted)'}">
             ${n.active && !isExpired ? '● Visible on Board' : (isExpired ? '✕ Expired' : '○ Hidden')}
@@ -83,8 +107,8 @@ function renderAdminNotices() {
         </div>
       </div>
       <div class="ali-actions">
-        <button class="btn-edit" onclick="editNotice('${n.id}')">✏️ Edit</button>
-        <button class="btn-danger" onclick="deleteNotice('${n.id}')">🗑️</button>
+        <button class="btn-edit" onclick="editNotice('${n.id}')"> Edit</button>
+        <button class="btn-danger" onclick="deleteNotice('${n.id}')"></button>
       </div>`;
     list.appendChild(item);
   });
@@ -103,14 +127,14 @@ function editNotice(id) {
   document.getElementById('notice-form-author').value = n.author;
   document.getElementById('notice-form-content').value = n.content;
   document.getElementById('notice-form-active').checked = n.active;
-  document.getElementById('notice-form-heading').textContent = '✏️ Edit Notice';
+  document.getElementById('notice-form-heading').textContent = 'Edit Notice';
   document.getElementById('notice-form-cancel').style.display = 'inline-flex';
 }
 
 function cancelEditNotice() {
   editingNoticeId = null;
   document.getElementById('notice-form').reset();
-  document.getElementById('notice-form-heading').textContent = '➕ Add Notice';
+  document.getElementById('notice-form-heading').textContent = 'Add Notice';
   document.getElementById('notice-form-cancel').style.display = 'none';
 }
 
@@ -181,13 +205,13 @@ function renderAdminAchievements() {
           <span>🎓 ${a.studentName}</span>
           <span>🏆 ${a.competition}</span>
           <span style="color:${a.featured ? 'var(--accent-amber)' : 'var(--text-muted)'}">
-            ${a.featured ? '⭐ Featured' : '○ Not Featured'}
+            ${a.featured ? ' Featured' : '○ Not Featured'}
           </span>
         </div>
       </div>
       <div class="ali-actions">
-        <button class="btn-edit" onclick="editAchievement('${a.id}')">✏️ Edit</button>
-        <button class="btn-danger" onclick="deleteAchievement('${a.id}')">🗑️</button>
+        <button class="btn-edit" onclick="editAchievement('${a.id}')"> Edit</button>
+        <button class="btn-danger" onclick="deleteAchievement('${a.id}')"></button>
       </div>`;
     list.appendChild(item);
   });
@@ -209,7 +233,7 @@ function editAchievement(id) {
   document.getElementById('ach-form-featured').checked = a.featured;
   previewImageSrc = a.image || '';
   updateAchPreview();
-  document.getElementById('ach-form-heading').textContent = '✏️ Edit Achievement';
+  document.getElementById('ach-form-heading').textContent = ' Edit Achievement';
   document.getElementById('ach-form-cancel').style.display = 'inline-flex';
 }
 
@@ -217,7 +241,7 @@ function cancelEditAch() {
   editingAchId = null;
   previewImageSrc = '';
   document.getElementById('ach-form').reset();
-  document.getElementById('ach-form-heading').textContent = '➕ Add Achievement';
+  document.getElementById('ach-form-heading').textContent = ' Add Achievement';
   document.getElementById('ach-form-cancel').style.display = 'none';
   updateAchPreview();
 }
@@ -289,8 +313,8 @@ function updateAchPreview() {
     imgEl.style.display = 'none'; imgHolder.style.display = 'flex';
   }
   document.getElementById('preview-title').textContent = title;
-  document.getElementById('preview-student').textContent = '🎓 ' + name;
-  document.getElementById('preview-award').textContent = '🥇 ' + award;
+  document.getElementById('preview-student').textContent =  name;
+  document.getElementById('preview-award').textContent =  award;
 }
 
 /* ── ADMIN TIMETABLE & SUBJECT CATALOG ───────────────────────────────────── */
@@ -384,7 +408,7 @@ function saveSubjectToCatalog(cls, subject, code, teacher) {
 const BREAK_PRESETS = {
   morning: {
     key: 'preset_morning_break',
-    label: '☕ Morning Short Break (10:40–10:50)',
+    label: ' Morning Short Break (10:40–10:50)',
     period: 'Break',
     time: '10:40–10:50',
     subject: 'Short Break',
@@ -393,7 +417,7 @@ const BREAK_PRESETS = {
   },
   lunch: {
     key: 'preset_lunch_break',
-    label: '🍱 Lunch Break (12:30-1:20)',
+    label: 'Lunch Break (12:30-1:20)',
     period: 'Lunch',
     time: '12:30-1:20',
     subject: 'Lunch Break',
@@ -402,7 +426,7 @@ const BREAK_PRESETS = {
   },
   afternoon: {
     key: 'preset_afternoon_break',
-    label: '☕ Afternoon Short Break (2:10–2:20)',
+    label: 'Afternoon Short Break (2:10–2:20)',
     period: 'Break',
     time: '2:10–2:20',
     subject: 'Short Break',
@@ -444,7 +468,7 @@ function populateSubjectDropdown() {
   html += `</optgroup>`;
 
   // 2. Class-specific Academic Subjects
-  html += `<optgroup label="📚 ${cls} Academic Subjects">`;
+  html += `<optgroup label=" ${cls} Academic Subjects">`;
   subjects.forEach((s, idx) => {
     const parts = [s.subject];
     if (s.code) parts.push(`[${s.code}]`);
@@ -704,15 +728,15 @@ function renderAdminTimetableDay() {
           ${isEditing ? '<span style="color:var(--accent-amber);font-size:11px;margin-left:8px;font-weight:700">● EDITING</span>' : ''}
         </div>
         <div class="ali-meta" style="display:flex;gap:8px;margin-top:2px">
-          <span>⏰ ${p.time}</span>
-          <span>👤 ${p.teacher || '—'}</span>
+          <span> ${p.time}</span>
+          <span> ${p.teacher || '—'}</span>
         </div>
       </div>
       <div class="ali-actions">
         <button type="button" class="btn-sm btn-ghost" onclick="moveTTPeriod('${day}', '${cls}', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Move Up">▲</button>
         <button type="button" class="btn-sm btn-ghost" onclick="moveTTPeriod('${day}', '${cls}', ${idx}, 1)" ${idx === periods.length - 1 ? 'disabled' : ''} title="Move Down">▼</button>
-        <button type="button" class="btn-sm btn-secondary" onclick="editTTPeriod('${day}', '${cls}', ${idx})" title="Edit period">✏️</button>
-        <button type="button" class="btn-sm btn-danger" onclick="deleteTTPeriod('${day}', '${cls}', ${idx})" title="Delete period">🗑️</button>
+        <button type="button" class="btn-sm btn-secondary" onclick="editTTPeriod('${day}', '${cls}', ${idx})" title="Edit period"></button>
+        <button type="button" class="btn-sm btn-danger" onclick="deleteTTPeriod('${day}', '${cls}', ${idx})" title="Delete period"></button>
       </div>`;
     list.appendChild(item);
   });
@@ -747,9 +771,9 @@ function editTTPeriod(day, cls, idx) {
 
   // Update UI heading and buttons
   const heading = document.getElementById('tt-form-heading');
-  if (heading) heading.textContent = `✏️ Edit Period (P${p.period || idx + 1})`;
+  if (heading) heading.textContent = ` Edit Period (P${p.period || idx + 1})`;
   const submitBtn = document.getElementById('tt-form-submit');
-  if (submitBtn) submitBtn.textContent = '💾 Update Period';
+  if (submitBtn) submitBtn.textContent = ' Update Period';
   const cancelBtn = document.getElementById('tt-form-cancel');
   if (cancelBtn) cancelBtn.style.display = 'inline-flex';
 
@@ -760,9 +784,9 @@ function cancelEditTTPeriod() {
   editingTT = null;
   document.getElementById('tt-form').reset();
   const heading = document.getElementById('tt-form-heading');
-  if (heading) heading.textContent = '➕ Add Period';
+  if (heading) heading.textContent = ' Add Period';
   const submitBtn = document.getElementById('tt-form-submit');
-  if (submitBtn) submitBtn.textContent = '➕ Add Period';
+  if (submitBtn) submitBtn.textContent = ' Add Period';
   const cancelBtn = document.getElementById('tt-form-cancel');
   if (cancelBtn) cancelBtn.style.display = 'none';
   const subSel = document.getElementById('tt-subject-select');
@@ -844,7 +868,7 @@ function loadSettings() {
   if (window.updateCollegeLogoDisplay) window.updateCollegeLogoDisplay();
 }
 
-function saveSettings() {
+async function saveSettings() {
   const cfg = window.App.data.config;
   const sbt = document.getElementById('set-board-title');
   if (sbt) cfg.boardTitle = sbt.value.trim() || cfg.boardTitle;
@@ -864,22 +888,37 @@ function saveSettings() {
   if (newPass) window.App.data.admin.password = newPass;
 
   window.saveData();
-
-  // Apply changes live
+// Apply changes live on the page
   const bt = document.getElementById('board-title');
   if (bt) bt.textContent = cfg.boardTitle;
   const bi = document.getElementById('board-institution');
   if (bi) bi.textContent = cfg.institution;
 
-  if (window.updateCollegeLogoDisplay) window.updateCollegeLogoDisplay();
+  // 1. Refresh logo from Pi backend instead of session storage
+  if (typeof loadCollegeLogo === 'function') {
+    loadCollegeLogo();
+  }
+
+  // 2. Persist settings to backend
+  try {
+    await fetch(`http://${PI_IP}:5000/api/settings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cfg)
+    });
+  } catch (err) {
+    console.error('Failed to persist settings to backend:', err);
+  }
+
   if (window.checkSunsetTheme) window.checkSunsetTheme();
 
   if (cfg.autoRotate) { window.startKiosk(); } else { window.stopKiosk(); }
-  window.fetchWeather();
-  window.scheduleWeatherRefresh();
+  if (window.fetchWeather) window.fetchWeather();
+  if (window.scheduleWeatherRefresh) window.scheduleWeatherRefresh();
 
   window.showToast('Settings saved!', 'success');
-  document.getElementById('set-admin-pass').value = '';
+  const passInput = document.getElementById('set-admin-pass');
+  if (passInput) passInput.value = '';
 }
 
 function exportData() {
